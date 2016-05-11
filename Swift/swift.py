@@ -10,7 +10,7 @@ Symbol = str          # A Lisp Symbol is implemented as a Python str
 List   = list         # A Lisp List is implemented as a Python list
 Number = (int, float) # A Lisp Number is implemented as a Python int or float
 
-SWIFT_DEBUG = True
+SWIFT_DEBUG = False
 
 ################ Environments
 
@@ -130,6 +130,7 @@ def eval(x, env=global_env):
         import re
         exec(proc(re.sub(r"^'|'$", '', x[1])))
         return toReturn
+
     else:                          # (proc arg...)
         if SWIFT_DEBUG:
             print("case '9':")

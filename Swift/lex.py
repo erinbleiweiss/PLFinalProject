@@ -19,7 +19,10 @@ reserved = {
 
 # List of token names.
 tokens = ('QUOTE', 'LPAREN', 'RPAREN', 'NIL', 'TRUE', 'FALSE', 'TEXT',
-          'INTEGER', 'PLUS', 'MINUS', 'MULT', 'DIV') + tuple(reserved.keys())
+          'INTEGER', 'PLUS', 'MINUS', 'MULT', 'DIV', 'EQUALS', 'LET')
+
+
+         # + tuple(reserved.keys())
 
 
 def t_CLFLOAT(t):
@@ -36,6 +39,7 @@ t_PLUS = r'\+'
 t_MINUS = r'-'
 t_MULT = r'\*'
 t_DIV = r'/'
+t_EQUALS = r'='
 
 def t_INTEGER(t):
     r'\d+'
@@ -52,13 +56,16 @@ def t_INTEGER(t):
 #     return t
 
 
-def t_CLSTRING(t):
-    r'"[a-zA-Z0-9_+\*\- :,]*"'
+# def t_CLSTRING(t):
+#     r'"[a-zA-Z0-9_+\*\- :,]*"'
+#     return t
+
+def t_LET(t):
+    r'\blet\b'
     return t
 
 def t_TEXT(t):
-    r'\'[ -&,(-~]+\''
-    #r'\'[a-zA-Z0-9_+\*\- :,]*\''
+    r'\b[\w-]+\b'
     t.type = reserved.get(t.value,'TEXT')    # Check for reserved words
     return t
 

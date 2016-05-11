@@ -7,7 +7,7 @@ DEBUG = False
 
 # Namespace & built-in functions
 
-name = {}
+stored_vars = {}
 
 class DivideByZeroError(Exception):
     def __init___(self):
@@ -16,11 +16,10 @@ class DivideByZeroError(Exception):
 # BNF
 
 def p_program(p):
-    '''program : expressions'''
+    '''program : expressions
+               | declaration'''
     print "Saw: ", p[1]
-    ast = []
-    ast += p[1]
-    p[0] = ast
+    p[0] = p[1]
 
 def p_expressions(p):
     '''expressions : expression
@@ -29,7 +28,9 @@ def p_expressions(p):
 
 def p_expression(p):
     '''expression : operation'''
-    p[0] = p[1]
+    ast = []
+    ast += p[1]
+    p[0] = ast
 
 def p_operation(p):
     '''operation : addition
@@ -61,13 +62,29 @@ def p_division(p):
     else:
         p[0] = [p[2]] + [p[1], p[3]]
 
-def p_empty(t):
+
+def p_declaration(p):
+    '''declaration : let'''
+    p[0] = p[1]
+
+def p_let(p):
+    '''let : LET TEXT EQUALS INTEGER'''
+    key = p[2]
+    val = p[4]
+    stored_vars[key] = val
+    p[0] = val
+
+
+def p_empty(p):
     'empty : '
     pass
 
 # Error rule for syntax errors
 def p_error(p):
-    print "Syntax error!! ",p
+    if p == None:
+        print("Syntax error at '%s'" % p)
+    else:
+        print("Syntax error at '%s'" % p.value)
 
 # Build the parser
 # Use this if you want to build the parser using SLR instead of LALR

@@ -2,76 +2,68 @@ Created by PLY version 3.8 (http://www.dabeaz.com/ply)
 
 Unused terminals:
 
-    PRINT
     QUOTE
-    ELSEIF
-    VAR
     LPAREN
     TRUE
-    TEXT
     RPAREN
     NIL
-    nil
-    ELSE
     FALSE
-    LET
-    IF
 
 Grammar
 
 Rule 0     S' -> program
 Rule 1     program -> expressions
-Rule 2     expressions -> expression
-Rule 3     expressions -> expressions expression
-Rule 4     expression -> operation
-Rule 5     operation -> addition
-Rule 6     operation -> subtraction
-Rule 7     operation -> multiplication
-Rule 8     operation -> division
-Rule 9     addition -> INTEGER PLUS INTEGER
-Rule 10    addition -> INTEGER PLUS addition
-Rule 11    subtraction -> INTEGER MINUS INTEGER
-Rule 12    subtraction -> INTEGER MINUS subtraction
-Rule 13    multiplication -> INTEGER MULT INTEGER
-Rule 14    multiplication -> INTEGER MULT multiplication
-Rule 15    division -> INTEGER DIV INTEGER
-Rule 16    division -> INTEGER DIV division
-Rule 17    empty -> <empty>
+Rule 2     program -> declaration
+Rule 3     expressions -> expression
+Rule 4     expressions -> expressions expression
+Rule 5     expression -> operation
+Rule 6     operation -> addition
+Rule 7     operation -> subtraction
+Rule 8     operation -> multiplication
+Rule 9     operation -> division
+Rule 10    addition -> INTEGER PLUS INTEGER
+Rule 11    addition -> INTEGER PLUS addition
+Rule 12    subtraction -> INTEGER MINUS INTEGER
+Rule 13    subtraction -> INTEGER MINUS subtraction
+Rule 14    multiplication -> INTEGER MULT INTEGER
+Rule 15    multiplication -> INTEGER MULT multiplication
+Rule 16    division -> INTEGER DIV INTEGER
+Rule 17    division -> INTEGER DIV division
+Rule 18    declaration -> let
+Rule 19    let -> LET TEXT EQUALS INTEGER
+Rule 20    empty -> <empty>
 
 Terminals, with rules where they appear
 
-DIV                  : 15 16
-ELSE                 : 
-ELSEIF               : 
+DIV                  : 16 17
+EQUALS               : 19
 FALSE                : 
-IF                   : 
-INTEGER              : 9 9 10 11 11 12 13 13 14 15 15 16
-LET                  : 
+INTEGER              : 10 10 11 12 12 13 14 14 15 16 16 17 19
+LET                  : 19
 LPAREN               : 
-MINUS                : 11 12
-MULT                 : 13 14
+MINUS                : 12 13
+MULT                 : 14 15
 NIL                  : 
-PLUS                 : 9 10
-PRINT                : 
+PLUS                 : 10 11
 QUOTE                : 
 RPAREN               : 
-TEXT                 : 
+TEXT                 : 19
 TRUE                 : 
-VAR                  : 
 error                : 
-nil                  : 
 
 Nonterminals, with rules where they appear
 
-addition             : 5 10
-division             : 8 16
+addition             : 6 11
+declaration          : 2
+division             : 9 17
 empty                : 
-expression           : 2 3
-expressions          : 1 3
-multiplication       : 7 14
-operation            : 4
+expression           : 3 4
+expressions          : 1 4
+let                  : 18
+multiplication       : 8 15
+operation            : 5
 program              : 0
-subtraction          : 6 12
+subtraction          : 7 13
 
 Parsing method: LALR
 
@@ -79,47 +71,53 @@ state 0
 
     (0) S' -> . program
     (1) program -> . expressions
-    (2) expressions -> . expression
-    (3) expressions -> . expressions expression
-    (4) expression -> . operation
-    (5) operation -> . addition
-    (6) operation -> . subtraction
-    (7) operation -> . multiplication
-    (8) operation -> . division
-    (9) addition -> . INTEGER PLUS INTEGER
-    (10) addition -> . INTEGER PLUS addition
-    (11) subtraction -> . INTEGER MINUS INTEGER
-    (12) subtraction -> . INTEGER MINUS subtraction
-    (13) multiplication -> . INTEGER MULT INTEGER
-    (14) multiplication -> . INTEGER MULT multiplication
-    (15) division -> . INTEGER DIV INTEGER
-    (16) division -> . INTEGER DIV division
+    (2) program -> . declaration
+    (3) expressions -> . expression
+    (4) expressions -> . expressions expression
+    (18) declaration -> . let
+    (5) expression -> . operation
+    (19) let -> . LET TEXT EQUALS INTEGER
+    (6) operation -> . addition
+    (7) operation -> . subtraction
+    (8) operation -> . multiplication
+    (9) operation -> . division
+    (10) addition -> . INTEGER PLUS INTEGER
+    (11) addition -> . INTEGER PLUS addition
+    (12) subtraction -> . INTEGER MINUS INTEGER
+    (13) subtraction -> . INTEGER MINUS subtraction
+    (14) multiplication -> . INTEGER MULT INTEGER
+    (15) multiplication -> . INTEGER MULT multiplication
+    (16) division -> . INTEGER DIV INTEGER
+    (17) division -> . INTEGER DIV division
 
-    INTEGER         shift and go to state 9
+    LET             shift and go to state 8
+    INTEGER         shift and go to state 11
 
     expression                     shift and go to state 1
     subtraction                    shift and go to state 2
     program                        shift and go to state 3
     expressions                    shift and go to state 4
-    division                       shift and go to state 5
-    multiplication                 shift and go to state 6
-    operation                      shift and go to state 7
-    addition                       shift and go to state 8
+    declaration                    shift and go to state 5
+    division                       shift and go to state 6
+    let                            shift and go to state 7
+    multiplication                 shift and go to state 9
+    operation                      shift and go to state 10
+    addition                       shift and go to state 12
 
 state 1
 
-    (2) expressions -> expression .
+    (3) expressions -> expression .
 
-    INTEGER         reduce using rule 2 (expressions -> expression .)
-    $end            reduce using rule 2 (expressions -> expression .)
+    INTEGER         reduce using rule 3 (expressions -> expression .)
+    $end            reduce using rule 3 (expressions -> expression .)
 
 
 state 2
 
-    (6) operation -> subtraction .
+    (7) operation -> subtraction .
 
-    INTEGER         reduce using rule 6 (operation -> subtraction .)
-    $end            reduce using rule 6 (operation -> subtraction .)
+    INTEGER         reduce using rule 7 (operation -> subtraction .)
+    $end            reduce using rule 7 (operation -> subtraction .)
 
 
 state 3
@@ -131,204 +129,246 @@ state 3
 state 4
 
     (1) program -> expressions .
-    (3) expressions -> expressions . expression
-    (4) expression -> . operation
-    (5) operation -> . addition
-    (6) operation -> . subtraction
-    (7) operation -> . multiplication
-    (8) operation -> . division
-    (9) addition -> . INTEGER PLUS INTEGER
-    (10) addition -> . INTEGER PLUS addition
-    (11) subtraction -> . INTEGER MINUS INTEGER
-    (12) subtraction -> . INTEGER MINUS subtraction
-    (13) multiplication -> . INTEGER MULT INTEGER
-    (14) multiplication -> . INTEGER MULT multiplication
-    (15) division -> . INTEGER DIV INTEGER
-    (16) division -> . INTEGER DIV division
+    (4) expressions -> expressions . expression
+    (5) expression -> . operation
+    (6) operation -> . addition
+    (7) operation -> . subtraction
+    (8) operation -> . multiplication
+    (9) operation -> . division
+    (10) addition -> . INTEGER PLUS INTEGER
+    (11) addition -> . INTEGER PLUS addition
+    (12) subtraction -> . INTEGER MINUS INTEGER
+    (13) subtraction -> . INTEGER MINUS subtraction
+    (14) multiplication -> . INTEGER MULT INTEGER
+    (15) multiplication -> . INTEGER MULT multiplication
+    (16) division -> . INTEGER DIV INTEGER
+    (17) division -> . INTEGER DIV division
 
     $end            reduce using rule 1 (program -> expressions .)
-    INTEGER         shift and go to state 9
+    INTEGER         shift and go to state 11
 
-    expression                     shift and go to state 10
+    expression                     shift and go to state 13
     subtraction                    shift and go to state 2
-    division                       shift and go to state 5
-    multiplication                 shift and go to state 6
-    operation                      shift and go to state 7
-    addition                       shift and go to state 8
+    division                       shift and go to state 6
+    multiplication                 shift and go to state 9
+    operation                      shift and go to state 10
+    addition                       shift and go to state 12
 
 state 5
 
-    (8) operation -> division .
+    (2) program -> declaration .
 
-    INTEGER         reduce using rule 8 (operation -> division .)
-    $end            reduce using rule 8 (operation -> division .)
+    $end            reduce using rule 2 (program -> declaration .)
 
 
 state 6
 
-    (7) operation -> multiplication .
+    (9) operation -> division .
 
-    INTEGER         reduce using rule 7 (operation -> multiplication .)
-    $end            reduce using rule 7 (operation -> multiplication .)
+    INTEGER         reduce using rule 9 (operation -> division .)
+    $end            reduce using rule 9 (operation -> division .)
 
 
 state 7
 
-    (4) expression -> operation .
+    (18) declaration -> let .
 
-    INTEGER         reduce using rule 4 (expression -> operation .)
-    $end            reduce using rule 4 (expression -> operation .)
+    $end            reduce using rule 18 (declaration -> let .)
 
 
 state 8
 
-    (5) operation -> addition .
+    (19) let -> LET . TEXT EQUALS INTEGER
 
-    INTEGER         reduce using rule 5 (operation -> addition .)
-    $end            reduce using rule 5 (operation -> addition .)
+    TEXT            shift and go to state 14
 
 
 state 9
 
-    (9) addition -> INTEGER . PLUS INTEGER
-    (10) addition -> INTEGER . PLUS addition
-    (11) subtraction -> INTEGER . MINUS INTEGER
-    (12) subtraction -> INTEGER . MINUS subtraction
-    (13) multiplication -> INTEGER . MULT INTEGER
-    (14) multiplication -> INTEGER . MULT multiplication
-    (15) division -> INTEGER . DIV INTEGER
-    (16) division -> INTEGER . DIV division
+    (8) operation -> multiplication .
 
-    PLUS            shift and go to state 14
-    MINUS           shift and go to state 11
-    MULT            shift and go to state 13
-    DIV             shift and go to state 12
+    INTEGER         reduce using rule 8 (operation -> multiplication .)
+    $end            reduce using rule 8 (operation -> multiplication .)
 
 
 state 10
 
-    (3) expressions -> expressions expression .
+    (5) expression -> operation .
 
-    INTEGER         reduce using rule 3 (expressions -> expressions expression .)
-    $end            reduce using rule 3 (expressions -> expressions expression .)
+    INTEGER         reduce using rule 5 (expression -> operation .)
+    $end            reduce using rule 5 (expression -> operation .)
 
 
 state 11
 
-    (11) subtraction -> INTEGER MINUS . INTEGER
-    (12) subtraction -> INTEGER MINUS . subtraction
-    (11) subtraction -> . INTEGER MINUS INTEGER
-    (12) subtraction -> . INTEGER MINUS subtraction
+    (10) addition -> INTEGER . PLUS INTEGER
+    (11) addition -> INTEGER . PLUS addition
+    (12) subtraction -> INTEGER . MINUS INTEGER
+    (13) subtraction -> INTEGER . MINUS subtraction
+    (14) multiplication -> INTEGER . MULT INTEGER
+    (15) multiplication -> INTEGER . MULT multiplication
+    (16) division -> INTEGER . DIV INTEGER
+    (17) division -> INTEGER . DIV division
 
-    INTEGER         shift and go to state 16
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 15
+    MULT            shift and go to state 17
+    DIV             shift and go to state 16
 
-    subtraction                    shift and go to state 15
 
 state 12
 
-    (15) division -> INTEGER DIV . INTEGER
-    (16) division -> INTEGER DIV . division
-    (15) division -> . INTEGER DIV INTEGER
-    (16) division -> . INTEGER DIV division
+    (6) operation -> addition .
 
-    INTEGER         shift and go to state 18
+    INTEGER         reduce using rule 6 (operation -> addition .)
+    $end            reduce using rule 6 (operation -> addition .)
 
-    division                       shift and go to state 17
 
 state 13
 
-    (13) multiplication -> INTEGER MULT . INTEGER
-    (14) multiplication -> INTEGER MULT . multiplication
-    (13) multiplication -> . INTEGER MULT INTEGER
-    (14) multiplication -> . INTEGER MULT multiplication
+    (4) expressions -> expressions expression .
 
-    INTEGER         shift and go to state 20
+    INTEGER         reduce using rule 4 (expressions -> expressions expression .)
+    $end            reduce using rule 4 (expressions -> expressions expression .)
 
-    multiplication                 shift and go to state 19
 
 state 14
 
-    (9) addition -> INTEGER PLUS . INTEGER
-    (10) addition -> INTEGER PLUS . addition
-    (9) addition -> . INTEGER PLUS INTEGER
-    (10) addition -> . INTEGER PLUS addition
+    (19) let -> LET TEXT . EQUALS INTEGER
 
-    INTEGER         shift and go to state 21
+    EQUALS          shift and go to state 19
 
-    addition                       shift and go to state 22
 
 state 15
 
-    (12) subtraction -> INTEGER MINUS subtraction .
+    (12) subtraction -> INTEGER MINUS . INTEGER
+    (13) subtraction -> INTEGER MINUS . subtraction
+    (12) subtraction -> . INTEGER MINUS INTEGER
+    (13) subtraction -> . INTEGER MINUS subtraction
 
-    INTEGER         reduce using rule 12 (subtraction -> INTEGER MINUS subtraction .)
-    $end            reduce using rule 12 (subtraction -> INTEGER MINUS subtraction .)
+    INTEGER         shift and go to state 21
 
+    subtraction                    shift and go to state 20
 
 state 16
 
-    (11) subtraction -> INTEGER MINUS INTEGER .
-    (11) subtraction -> INTEGER . MINUS INTEGER
-    (12) subtraction -> INTEGER . MINUS subtraction
+    (16) division -> INTEGER DIV . INTEGER
+    (17) division -> INTEGER DIV . division
+    (16) division -> . INTEGER DIV INTEGER
+    (17) division -> . INTEGER DIV division
 
-    INTEGER         reduce using rule 11 (subtraction -> INTEGER MINUS INTEGER .)
-    $end            reduce using rule 11 (subtraction -> INTEGER MINUS INTEGER .)
-    MINUS           shift and go to state 11
+    INTEGER         shift and go to state 23
 
+    division                       shift and go to state 22
 
 state 17
 
-    (16) division -> INTEGER DIV division .
+    (14) multiplication -> INTEGER MULT . INTEGER
+    (15) multiplication -> INTEGER MULT . multiplication
+    (14) multiplication -> . INTEGER MULT INTEGER
+    (15) multiplication -> . INTEGER MULT multiplication
 
-    INTEGER         reduce using rule 16 (division -> INTEGER DIV division .)
-    $end            reduce using rule 16 (division -> INTEGER DIV division .)
+    INTEGER         shift and go to state 25
 
+    multiplication                 shift and go to state 24
 
 state 18
 
-    (15) division -> INTEGER DIV INTEGER .
-    (15) division -> INTEGER . DIV INTEGER
-    (16) division -> INTEGER . DIV division
+    (10) addition -> INTEGER PLUS . INTEGER
+    (11) addition -> INTEGER PLUS . addition
+    (10) addition -> . INTEGER PLUS INTEGER
+    (11) addition -> . INTEGER PLUS addition
 
-    INTEGER         reduce using rule 15 (division -> INTEGER DIV INTEGER .)
-    $end            reduce using rule 15 (division -> INTEGER DIV INTEGER .)
-    DIV             shift and go to state 12
+    INTEGER         shift and go to state 26
 
+    addition                       shift and go to state 27
 
 state 19
 
-    (14) multiplication -> INTEGER MULT multiplication .
+    (19) let -> LET TEXT EQUALS . INTEGER
 
-    INTEGER         reduce using rule 14 (multiplication -> INTEGER MULT multiplication .)
-    $end            reduce using rule 14 (multiplication -> INTEGER MULT multiplication .)
+    INTEGER         shift and go to state 28
 
 
 state 20
 
-    (13) multiplication -> INTEGER MULT INTEGER .
-    (13) multiplication -> INTEGER . MULT INTEGER
-    (14) multiplication -> INTEGER . MULT multiplication
+    (13) subtraction -> INTEGER MINUS subtraction .
 
-    INTEGER         reduce using rule 13 (multiplication -> INTEGER MULT INTEGER .)
-    $end            reduce using rule 13 (multiplication -> INTEGER MULT INTEGER .)
-    MULT            shift and go to state 13
+    INTEGER         reduce using rule 13 (subtraction -> INTEGER MINUS subtraction .)
+    $end            reduce using rule 13 (subtraction -> INTEGER MINUS subtraction .)
 
 
 state 21
 
-    (9) addition -> INTEGER PLUS INTEGER .
-    (9) addition -> INTEGER . PLUS INTEGER
-    (10) addition -> INTEGER . PLUS addition
+    (12) subtraction -> INTEGER MINUS INTEGER .
+    (12) subtraction -> INTEGER . MINUS INTEGER
+    (13) subtraction -> INTEGER . MINUS subtraction
 
-    INTEGER         reduce using rule 9 (addition -> INTEGER PLUS INTEGER .)
-    $end            reduce using rule 9 (addition -> INTEGER PLUS INTEGER .)
-    PLUS            shift and go to state 14
+    INTEGER         reduce using rule 12 (subtraction -> INTEGER MINUS INTEGER .)
+    $end            reduce using rule 12 (subtraction -> INTEGER MINUS INTEGER .)
+    MINUS           shift and go to state 15
 
 
 state 22
 
-    (10) addition -> INTEGER PLUS addition .
+    (17) division -> INTEGER DIV division .
 
-    INTEGER         reduce using rule 10 (addition -> INTEGER PLUS addition .)
-    $end            reduce using rule 10 (addition -> INTEGER PLUS addition .)
+    INTEGER         reduce using rule 17 (division -> INTEGER DIV division .)
+    $end            reduce using rule 17 (division -> INTEGER DIV division .)
+
+
+state 23
+
+    (16) division -> INTEGER DIV INTEGER .
+    (16) division -> INTEGER . DIV INTEGER
+    (17) division -> INTEGER . DIV division
+
+    INTEGER         reduce using rule 16 (division -> INTEGER DIV INTEGER .)
+    $end            reduce using rule 16 (division -> INTEGER DIV INTEGER .)
+    DIV             shift and go to state 16
+
+
+state 24
+
+    (15) multiplication -> INTEGER MULT multiplication .
+
+    INTEGER         reduce using rule 15 (multiplication -> INTEGER MULT multiplication .)
+    $end            reduce using rule 15 (multiplication -> INTEGER MULT multiplication .)
+
+
+state 25
+
+    (14) multiplication -> INTEGER MULT INTEGER .
+    (14) multiplication -> INTEGER . MULT INTEGER
+    (15) multiplication -> INTEGER . MULT multiplication
+
+    INTEGER         reduce using rule 14 (multiplication -> INTEGER MULT INTEGER .)
+    $end            reduce using rule 14 (multiplication -> INTEGER MULT INTEGER .)
+    MULT            shift and go to state 17
+
+
+state 26
+
+    (10) addition -> INTEGER PLUS INTEGER .
+    (10) addition -> INTEGER . PLUS INTEGER
+    (11) addition -> INTEGER . PLUS addition
+
+    INTEGER         reduce using rule 10 (addition -> INTEGER PLUS INTEGER .)
+    $end            reduce using rule 10 (addition -> INTEGER PLUS INTEGER .)
+    PLUS            shift and go to state 18
+
+
+state 27
+
+    (11) addition -> INTEGER PLUS addition .
+
+    INTEGER         reduce using rule 11 (addition -> INTEGER PLUS addition .)
+    $end            reduce using rule 11 (addition -> INTEGER PLUS addition .)
+
+
+state 28
+
+    (19) let -> LET TEXT EQUALS INTEGER .
+
+    $end            reduce using rule 19 (let -> LET TEXT EQUALS INTEGER .)
 
