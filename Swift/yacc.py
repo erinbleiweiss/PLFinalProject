@@ -61,10 +61,6 @@ def p_division(p):
     else:
         p[0] = [p[2]] + [p[1], p[3]]
 
-def p_nil(p):
-    'nil : NIL'
-    p[0] = None
-
 def p_empty(t):
     'empty : '
     pass

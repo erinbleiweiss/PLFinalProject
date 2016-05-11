@@ -10,6 +10,7 @@ Symbol = str          # A Lisp Symbol is implemented as a Python str
 List   = list         # A Lisp List is implemented as a Python list
 Number = (int, float) # A Lisp Number is implemented as a Python int or float
 
+SWIFT_DEBUG = True
 
 ################ Environments
 
@@ -89,31 +90,49 @@ toReturn = None
 def eval(x, env=global_env):
     "Evaluate an expression in an environment."
     if isinstance(x, Symbol):      # variable reference
+        if SWIFT_DEBUG:
+            print("case '1':")
         return env.find(x)[x]
     elif not isinstance(x, List):  # constant literal
+        if SWIFT_DEBUG:
+            print("case '2':")
         return x                
     elif x[0] == 'quote':          # (quote exp)
+        if SWIFT_DEBUG:
+            print("case '3':")
         (_, exp) = x
         return exp
     elif x[0] == 'if':             # (if test conseq alt)
+        if SWIFT_DEBUG:
+            print("case '4':")
         (_, test, conseq, alt) = x
         exp = (conseq if eval(test, env) else alt)
         return eval(exp, env)
     elif x[0] == 'define':         # (define var exp)
+        if SWIFT_DEBUG:
+            print("case '5':")
         (_, var, exp) = x
         env[var] = eval(exp, env)
     elif x[0] == 'set!':           # (set! var exp)
+        if SWIFT_DEBUG:
+            print("case '6':")
         (_, var, exp) = x
         env.find(var)[var] = eval(exp, env)
     elif x[0] == 'lambda':         # (lambda (var...) body)
+        if SWIFT_DEBUG:
+            print("case '7':")
         (_, parms, body) = x
         return Procedure(parms, body, env)
     elif x[0] == 'exec':
+        if SWIFT_DEBUG:
+            print("case '8':")
         proc = eval(x[0], env)
         import re
         exec(proc(re.sub(r"^'|'$", '', x[1])))
         return toReturn
     else:                          # (proc arg...)
+        if SWIFT_DEBUG:
+            print("case '9':")
         proc = eval(x[0], env)
         args = [eval(exp, env) for exp in x[1:]]
         return proc(*args)

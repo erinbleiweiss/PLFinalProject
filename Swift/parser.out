@@ -10,6 +10,7 @@ Unused terminals:
     TRUE
     TEXT
     RPAREN
+    NIL
     nil
     ELSE
     FALSE
@@ -35,8 +36,7 @@ Rule 13    multiplication -> INTEGER MULT INTEGER
 Rule 14    multiplication -> INTEGER MULT multiplication
 Rule 15    division -> INTEGER DIV INTEGER
 Rule 16    division -> INTEGER DIV division
-Rule 17    atom -> NIL
-Rule 18    empty -> <empty>
+Rule 17    empty -> <empty>
 
 Terminals, with rules where they appear
 
@@ -50,7 +50,7 @@ LET                  :
 LPAREN               : 
 MINUS                : 11 12
 MULT                 : 13 14
-NIL                  : 17
+NIL                  : 
 PLUS                 : 9 10
 PRINT                : 
 QUOTE                : 
@@ -64,7 +64,6 @@ nil                  :
 Nonterminals, with rules where they appear
 
 addition             : 5 10
-atom                 : 
 division             : 8 16
 empty                : 
 expression           : 2 3
