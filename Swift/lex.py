@@ -19,7 +19,8 @@ reserved = {
 
 # List of token names.
 tokens = ('QUOTE', 'LPAREN', 'RPAREN', 'NIL', 'TRUE', 'FALSE', 'TEXT',
-          'INTEGER', 'PLUS', 'MINUS', 'MULT', 'DIV', 'EQUALS', 'LET')
+          'INTEGER', 'PLUS', 'MINUS', 'MULT', 'DIV', 'EQUALS', 'LET',
+          'SQUOTE', 'CLSTRING')
 
 
          # + tuple(reserved.keys())
@@ -32,7 +33,8 @@ def t_CLFLOAT(t):
 # Regular expression rules for simple tokens
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
-t_QUOTE = r'\''
+t_SQUOTE = r'\''
+t_QUOTE = r'\"'
 t_TRUE = r'\#t'
 t_FALSE = r'\#f'
 t_PLUS = r'\+'
@@ -40,6 +42,7 @@ t_MINUS = r'-'
 t_MULT = r'\*'
 t_DIV = r'/'
 t_EQUALS = r'='
+
 
 def t_INTEGER(t):
     r'\d+'
@@ -56,9 +59,10 @@ def t_INTEGER(t):
 #     return t
 
 
-# def t_CLSTRING(t):
-#     r'"[a-zA-Z0-9_+\*\- :,]*"'
-#     return t
+def t_CLSTRING(t):
+    r'\"[a-zA-Z0-9_+\*\- :,\\\(\)]*\"'
+    "Saw CLString"
+    return t
 
 def t_LET(t):
     r'\blet\b'
@@ -66,6 +70,7 @@ def t_LET(t):
 
 def t_TEXT(t):
     r'\b[\w-]+\b'
+    print("Saw text")
     t.type = reserved.get(t.value,'TEXT')    # Check for reserved words
     return t
 

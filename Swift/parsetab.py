@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = '872583E741B287574CB7080343974BF6'
+_lr_signature = 'FF01CC3FC0E1D0CA48C7B1F2245AE941'
     
-_lr_action_items = {'EQUALS':([14,],[19,]),'$end':([1,2,3,4,5,6,7,9,10,12,13,20,21,22,23,24,25,26,27,28,],[-3,-7,0,-1,-2,-9,-18,-8,-5,-6,-4,-13,-12,-17,-16,-15,-14,-10,-11,-19,]),'TEXT':([8,],[14,]),'MINUS':([11,21,],[15,15,]),'DIV':([11,23,],[16,16,]),'MULT':([11,25,],[17,17,]),'LET':([0,],[8,]),'INTEGER':([0,1,2,4,6,9,10,12,13,15,16,17,18,19,20,21,22,23,24,25,26,27,],[11,-3,-7,11,-9,-8,-5,-6,-4,21,23,25,26,28,-13,-12,-17,-16,-15,-14,-10,-11,]),'PLUS':([11,26,],[18,18,]),}
+_lr_action_items = {'EQUALS':([17,],[22,]),'$end':([0,1,2,3,4,5,6,7,8,9,10,12,13,15,16,23,24,25,26,27,28,29,30,31,],[-23,-5,-3,-9,-22,0,-1,-2,-4,-11,-20,-10,-7,-8,-6,-15,-14,-19,-18,-17,-16,-12,-13,-21,]),'CLSTRING':([0,],[4,]),'TEXT':([11,],[17,]),'MINUS':([14,24,],[18,18,]),'DIV':([14,26,],[19,19,]),'MULT':([14,28,],[20,20,]),'LET':([0,],[11,]),'INTEGER':([0,1,3,6,9,12,13,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,],[14,-5,-9,14,-11,-10,-7,-8,-6,24,26,28,29,31,-15,-14,-19,-18,-17,-16,-12,-13,]),'PLUS':([14,29,],[21,21,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,4,],[1,13,]),'subtraction':([0,4,15,],[2,2,20,]),'program':([0,],[3,]),'expressions':([0,],[4,]),'declaration':([0,],[5,]),'division':([0,4,16,],[6,6,22,]),'let':([0,],[7,]),'multiplication':([0,4,17,],[9,9,24,]),'operation':([0,4,],[10,10,]),'addition':([0,4,18,],[12,12,27,]),}
+_lr_goto_items = {'expression':([0,6,],[1,16,]),'string':([0,],[2,]),'subtraction':([0,6,18,],[3,3,23,]),'program':([0,],[5,]),'expressions':([0,],[6,]),'declaration':([0,],[7,]),'empty':([0,],[8,]),'division':([0,6,19,],[9,9,25,]),'let':([0,],[10,]),'multiplication':([0,6,20,],[12,12,27,]),'operation':([0,6,],[13,13,]),'addition':([0,6,21,],[15,15,30,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -28,6 +28,8 @@ _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
   ('program -> expressions','program',1,'p_program','yacc.py',19),
   ('program -> declaration','program',1,'p_program','yacc.py',20),
+  ('program -> string','program',1,'p_program','yacc.py',21),
+  ('program -> empty','program',1,'p_program','yacc.py',22),
   ('expressions -> expression','expressions',1,'p_expressions','yacc.py',27),
   ('expressions -> expressions expression','expressions',2,'p_expressions','yacc.py',28),
   ('expression -> operation','expression',1,'p_expression','yacc.py',32),
@@ -45,5 +47,6 @@ _lr_productions = [
   ('division -> INTEGER DIV division','division',3,'p_division','yacc.py',61),
   ('declaration -> let','declaration',1,'p_declaration','yacc.py',69),
   ('let -> LET TEXT EQUALS INTEGER','let',4,'p_let','yacc.py',73),
-  ('empty -> <empty>','empty',0,'p_empty','yacc.py',82),
+  ('string -> CLSTRING','string',1,'p_string','yacc.py',81),
+  ('empty -> <empty>','empty',0,'p_empty','yacc.py',87),
 ]

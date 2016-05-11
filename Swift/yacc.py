@@ -17,7 +17,9 @@ class DivideByZeroError(Exception):
 
 def p_program(p):
     '''program : expressions
-               | declaration'''
+               | declaration
+               | string
+               | empty'''
     print "Saw: ", p[1]
     p[0] = p[1]
 
@@ -75,6 +77,13 @@ def p_let(p):
     p[0] = val
 
 
+def p_string(p):
+    '''string : CLSTRING'''
+    print("Saw string")
+    print(p[1])
+    # p[0] = p[1]
+
+
 def p_empty(p):
     'empty : '
     pass
@@ -85,6 +94,11 @@ def p_error(p):
         print("Syntax error at '%s'" % p)
     else:
         print("Syntax error at '%s'" % p.value)
+
+
+# Differentiate info output with blue color
+def print_blue(s):
+    print "\033[0;34m{0}\033[0m".format(s)
 
 # Build the parser
 # Use this if you want to build the parser using SLR instead of LALR

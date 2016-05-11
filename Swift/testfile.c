@@ -4,4 +4,6 @@
 3 * 4
 12 / 3
 let apples = 3
+"hello"
+"hello world"
 
