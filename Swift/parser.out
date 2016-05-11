@@ -35,7 +35,9 @@ Rule 21    let -> LET TEXT EQUALS INTEGER
 Rule 22    let -> LET TEXT EQUALS string
 Rule 23    string -> CLSTRING
 Rule 24    print -> PRINT LPAREN TEXT RPAREN
-Rule 25    empty -> <empty>
+Rule 25    print -> PRINT LPAREN string RPAREN
+Rule 26    print -> PRINT LPAREN expression RPAREN
+Rule 27    empty -> <empty>
 
 Terminals, with rules where they appear
 
@@ -45,14 +47,14 @@ EQUALS               : 21 22
 FALSE                : 
 INTEGER              : 12 12 13 14 14 15 16 16 17 18 18 19 21
 LET                  : 21 22
-LPAREN               : 24
+LPAREN               : 24 25 26
 MINUS                : 14 15
 MULT                 : 16 17
 NIL                  : 
 PLUS                 : 12 13
-PRINT                : 24
+PRINT                : 24 25 26
 QUOTE                : 
-RPAREN               : 24
+RPAREN               : 24 25 26
 SQUOTE               : 
 TEXT                 : 21 22 24
 TRUE                 : 
@@ -64,14 +66,14 @@ addition             : 8 13
 declaration          : 2
 division             : 11 19
 empty                : 4
-expression           : 5 6
+expression           : 5 6 26
 expressions          : 1 6
 let                  : 20
 multiplication       : 10 17
 operation            : 7
 print                : 3
 program              : 0
-string               : 22
+string               : 22 25
 subtraction          : 9 15
 
 Parsing method: LALR
@@ -87,7 +89,9 @@ state 0
     (6) expressions -> . expressions expression
     (20) declaration -> . let
     (24) print -> . PRINT LPAREN TEXT RPAREN
-    (25) empty -> .
+    (25) print -> . PRINT LPAREN string RPAREN
+    (26) print -> . PRINT LPAREN expression RPAREN
+    (27) empty -> .
     (7) expression -> . operation
     (21) let -> . LET TEXT EQUALS INTEGER
     (22) let -> . LET TEXT EQUALS string
@@ -105,7 +109,7 @@ state 0
     (19) division -> . INTEGER DIV division
 
     PRINT           shift and go to state 1
-    $end            reduce using rule 25 (empty -> .)
+    $end            reduce using rule 27 (empty -> .)
     LET             shift and go to state 14
     INTEGER         shift and go to state 9
 
@@ -125,6 +129,8 @@ state 0
 state 1
 
     (24) print -> PRINT . LPAREN TEXT RPAREN
+    (25) print -> PRINT . LPAREN string RPAREN
+    (26) print -> PRINT . LPAREN expression RPAREN
 
     LPAREN          shift and go to state 16
 
@@ -135,6 +141,7 @@ state 2
 
     INTEGER         reduce using rule 9 (operation -> subtraction .)
     $end            reduce using rule 9 (operation -> subtraction .)
+    RPAREN          reduce using rule 9 (operation -> subtraction .)
 
 
 state 3
@@ -156,6 +163,7 @@ state 5
 
     INTEGER         reduce using rule 11 (operation -> division .)
     $end            reduce using rule 11 (operation -> division .)
+    RPAREN          reduce using rule 11 (operation -> division .)
 
 
 state 6
@@ -171,6 +179,7 @@ state 7
 
     INTEGER         reduce using rule 10 (operation -> multiplication .)
     $end            reduce using rule 10 (operation -> multiplication .)
+    RPAREN          reduce using rule 10 (operation -> multiplication .)
 
 
 state 8
@@ -179,6 +188,7 @@ state 8
 
     INTEGER         reduce using rule 8 (operation -> addition .)
     $end            reduce using rule 8 (operation -> addition .)
+    RPAREN          reduce using rule 8 (operation -> addition .)
 
 
 state 9
@@ -262,14 +272,40 @@ state 15
 
     INTEGER         reduce using rule 7 (expression -> operation .)
     $end            reduce using rule 7 (expression -> operation .)
+    RPAREN          reduce using rule 7 (expression -> operation .)
 
 
 state 16
 
     (24) print -> PRINT LPAREN . TEXT RPAREN
+    (25) print -> PRINT LPAREN . string RPAREN
+    (26) print -> PRINT LPAREN . expression RPAREN
+    (23) string -> . CLSTRING
+    (7) expression -> . operation
+    (8) operation -> . addition
+    (9) operation -> . subtraction
+    (10) operation -> . multiplication
+    (11) operation -> . division
+    (12) addition -> . INTEGER PLUS INTEGER
+    (13) addition -> . INTEGER PLUS addition
+    (14) subtraction -> . INTEGER MINUS INTEGER
+    (15) subtraction -> . INTEGER MINUS subtraction
+    (16) multiplication -> . INTEGER MULT INTEGER
+    (17) multiplication -> . INTEGER MULT multiplication
+    (18) division -> . INTEGER DIV INTEGER
+    (19) division -> . INTEGER DIV division
 
-    TEXT            shift and go to state 23
+    TEXT            shift and go to state 25
+    CLSTRING        shift and go to state 26
+    INTEGER         shift and go to state 9
 
+    expression                     shift and go to state 23
+    string                         shift and go to state 24
+    subtraction                    shift and go to state 2
+    division                       shift and go to state 5
+    multiplication                 shift and go to state 7
+    operation                      shift and go to state 15
+    addition                       shift and go to state 8
 
 state 17
 
@@ -278,9 +314,9 @@ state 17
     (14) subtraction -> . INTEGER MINUS INTEGER
     (15) subtraction -> . INTEGER MINUS subtraction
 
-    INTEGER         shift and go to state 25
+    INTEGER         shift and go to state 28
 
-    subtraction                    shift and go to state 24
+    subtraction                    shift and go to state 27
 
 state 18
 
@@ -289,9 +325,9 @@ state 18
     (18) division -> . INTEGER DIV INTEGER
     (19) division -> . INTEGER DIV division
 
-    INTEGER         shift and go to state 27
+    INTEGER         shift and go to state 30
 
-    division                       shift and go to state 26
+    division                       shift and go to state 29
 
 state 19
 
@@ -300,9 +336,9 @@ state 19
     (16) multiplication -> . INTEGER MULT INTEGER
     (17) multiplication -> . INTEGER MULT multiplication
 
-    INTEGER         shift and go to state 29
+    INTEGER         shift and go to state 32
 
-    multiplication                 shift and go to state 28
+    multiplication                 shift and go to state 31
 
 state 20
 
@@ -311,9 +347,9 @@ state 20
     (12) addition -> . INTEGER PLUS INTEGER
     (13) addition -> . INTEGER PLUS addition
 
-    INTEGER         shift and go to state 30
+    INTEGER         shift and go to state 33
 
-    addition                       shift and go to state 31
+    addition                       shift and go to state 34
 
 state 21
 
@@ -328,25 +364,48 @@ state 22
     (21) let -> LET TEXT . EQUALS INTEGER
     (22) let -> LET TEXT . EQUALS string
 
-    EQUALS          shift and go to state 32
+    EQUALS          shift and go to state 35
 
 
 state 23
 
-    (24) print -> PRINT LPAREN TEXT . RPAREN
+    (26) print -> PRINT LPAREN expression . RPAREN
 
-    RPAREN          shift and go to state 33
+    RPAREN          shift and go to state 36
 
 
 state 24
+
+    (25) print -> PRINT LPAREN string . RPAREN
+
+    RPAREN          shift and go to state 37
+
+
+state 25
+
+    (24) print -> PRINT LPAREN TEXT . RPAREN
+
+    RPAREN          shift and go to state 38
+
+
+state 26
+
+    (23) string -> CLSTRING .
+
+    RPAREN          reduce using rule 23 (string -> CLSTRING .)
+    $end            reduce using rule 23 (string -> CLSTRING .)
+
+
+state 27
 
     (15) subtraction -> INTEGER MINUS subtraction .
 
     INTEGER         reduce using rule 15 (subtraction -> INTEGER MINUS subtraction .)
     $end            reduce using rule 15 (subtraction -> INTEGER MINUS subtraction .)
+    RPAREN          reduce using rule 15 (subtraction -> INTEGER MINUS subtraction .)
 
 
-state 25
+state 28
 
     (14) subtraction -> INTEGER MINUS INTEGER .
     (14) subtraction -> INTEGER . MINUS INTEGER
@@ -354,18 +413,20 @@ state 25
 
     INTEGER         reduce using rule 14 (subtraction -> INTEGER MINUS INTEGER .)
     $end            reduce using rule 14 (subtraction -> INTEGER MINUS INTEGER .)
+    RPAREN          reduce using rule 14 (subtraction -> INTEGER MINUS INTEGER .)
     MINUS           shift and go to state 17
 
 
-state 26
+state 29
 
     (19) division -> INTEGER DIV division .
 
     INTEGER         reduce using rule 19 (division -> INTEGER DIV division .)
     $end            reduce using rule 19 (division -> INTEGER DIV division .)
+    RPAREN          reduce using rule 19 (division -> INTEGER DIV division .)
 
 
-state 27
+state 30
 
     (18) division -> INTEGER DIV INTEGER .
     (18) division -> INTEGER . DIV INTEGER
@@ -373,18 +434,20 @@ state 27
 
     INTEGER         reduce using rule 18 (division -> INTEGER DIV INTEGER .)
     $end            reduce using rule 18 (division -> INTEGER DIV INTEGER .)
+    RPAREN          reduce using rule 18 (division -> INTEGER DIV INTEGER .)
     DIV             shift and go to state 18
 
 
-state 28
+state 31
 
     (17) multiplication -> INTEGER MULT multiplication .
 
     INTEGER         reduce using rule 17 (multiplication -> INTEGER MULT multiplication .)
     $end            reduce using rule 17 (multiplication -> INTEGER MULT multiplication .)
+    RPAREN          reduce using rule 17 (multiplication -> INTEGER MULT multiplication .)
 
 
-state 29
+state 32
 
     (16) multiplication -> INTEGER MULT INTEGER .
     (16) multiplication -> INTEGER . MULT INTEGER
@@ -392,10 +455,11 @@ state 29
 
     INTEGER         reduce using rule 16 (multiplication -> INTEGER MULT INTEGER .)
     $end            reduce using rule 16 (multiplication -> INTEGER MULT INTEGER .)
+    RPAREN          reduce using rule 16 (multiplication -> INTEGER MULT INTEGER .)
     MULT            shift and go to state 19
 
 
-state 30
+state 33
 
     (12) addition -> INTEGER PLUS INTEGER .
     (12) addition -> INTEGER . PLUS INTEGER
@@ -403,50 +467,59 @@ state 30
 
     INTEGER         reduce using rule 12 (addition -> INTEGER PLUS INTEGER .)
     $end            reduce using rule 12 (addition -> INTEGER PLUS INTEGER .)
+    RPAREN          reduce using rule 12 (addition -> INTEGER PLUS INTEGER .)
     PLUS            shift and go to state 20
 
 
-state 31
+state 34
 
     (13) addition -> INTEGER PLUS addition .
 
     INTEGER         reduce using rule 13 (addition -> INTEGER PLUS addition .)
     $end            reduce using rule 13 (addition -> INTEGER PLUS addition .)
+    RPAREN          reduce using rule 13 (addition -> INTEGER PLUS addition .)
 
 
-state 32
+state 35
 
     (21) let -> LET TEXT EQUALS . INTEGER
     (22) let -> LET TEXT EQUALS . string
     (23) string -> . CLSTRING
 
-    INTEGER         shift and go to state 36
-    CLSTRING        shift and go to state 35
+    INTEGER         shift and go to state 40
+    CLSTRING        shift and go to state 26
 
-    string                         shift and go to state 34
+    string                         shift and go to state 39
 
-state 33
+state 36
+
+    (26) print -> PRINT LPAREN expression RPAREN .
+
+    $end            reduce using rule 26 (print -> PRINT LPAREN expression RPAREN .)
+
+
+state 37
+
+    (25) print -> PRINT LPAREN string RPAREN .
+
+    $end            reduce using rule 25 (print -> PRINT LPAREN string RPAREN .)
+
+
+state 38
 
     (24) print -> PRINT LPAREN TEXT RPAREN .
 
     $end            reduce using rule 24 (print -> PRINT LPAREN TEXT RPAREN .)
 
 
-state 34
+state 39
 
     (22) let -> LET TEXT EQUALS string .
 
     $end            reduce using rule 22 (let -> LET TEXT EQUALS string .)
 
 
-state 35
-
-    (23) string -> CLSTRING .
-
-    $end            reduce using rule 23 (string -> CLSTRING .)
-
-
-state 36
+state 40
 
     (21) let -> LET TEXT EQUALS INTEGER .
 

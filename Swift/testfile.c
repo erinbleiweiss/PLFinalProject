@@ -6,3 +6,5 @@
 let apples = 3
 let appleSummary = "I have \(apples) apples"
 print(appleSummary)
+print("hello world")
+print(2 + 2)

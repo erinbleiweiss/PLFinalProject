@@ -11,7 +11,7 @@ with open('testfile.c', 'r') as content_file:
         print("AST is {}".format(result))
         r = swift.eval(result)
         if r is not None:
-            print r
+            print "Result is {}".format(r)
 
 
         # print("")

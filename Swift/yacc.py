@@ -97,7 +97,9 @@ def p_string(p):
 
 
 def p_print(p):
-    '''print : PRINT LPAREN TEXT RPAREN'''
+    '''print : PRINT LPAREN TEXT RPAREN
+             | PRINT LPAREN string RPAREN
+             | PRINT LPAREN expression RPAREN'''
     if isinstance(p[3], str) and p[3] in stored_vars:
         p[3] = stored_vars[p[3]]
     print_blue(p[3])
