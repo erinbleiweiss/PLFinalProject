@@ -54,6 +54,8 @@ def standard_env():
     env.update({
         '+':op.add, '-':op.sub, '*':op.mul, '/':op.div,
         '>':op.gt, '<':op.lt, '>=':op.ge, '<=':op.le, '=':op.eq,
+        '++': lambda x: [i+1 for i in x],
+        '--': lambda x: [i-1 for i in x],
         'abs':     abs,
         'append':  op.add,
         'apply':   apply,
