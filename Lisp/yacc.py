@@ -125,55 +125,29 @@ def bool_if(l):
 
 name['if'] = bool_if
 
-#  Evaluation functions
+
+# # Utilities functions
 #
-# def lisp_eval(simb, items):
-#     if simb in name:
-#         return call(name[simb], eval_lists(items))
+# def is_list(l):
+#     return type(l) == type([])
+#
+# def lisp_str(l):
+#     if type(l) == type([]):
+#         if not l:
+#             return "()"
+#         r = "("
+#         for i in l[:-1]:
+#             r += lisp_str(i) + " "
+#         r += lisp_str(l[-1]) + ")"
+#         return r
+#     elif l is True:
+#         return "#t"
+#     elif l is False:
+#         return "#f"
+#     elif l is None:
+#         return 'nil'
 #     else:
-#         stored_vars[simb] = items[0]
-#         return [simb] + items
-#
-# def call(f, l):
-#     try:
-#         return f(eval_lists(l))
-#     except TypeError:
-#         return f
-#
-# def eval_lists(l):
-#     r = []
-#     for i in l:
-#         if is_list(i):
-#             if i:
-#                 r.append(lisp_eval(i[0], i[1:]))
-#             else:
-#                 r.append(i)
-#         else:
-#             r.append(i)
-#     return r
-
-# Utilities functions
-
-def is_list(l):
-    return type(l) == type([])
-
-def lisp_str(l):
-    if type(l) == type([]):
-        if not l:
-            return "()"
-        r = "("
-        for i in l[:-1]:
-            r += lisp_str(i) + " "
-        r += lisp_str(l[-1]) + ")"
-        return r
-    elif l is True:
-        return "#t"
-    elif l is False:
-        return "#f"
-    elif l is None:
-        return 'nil'
-    else:
-        return str(l)
+#         return str(l)
 
 # BNF
 
@@ -232,7 +206,8 @@ def p_item_empty(p):
 
 def p_call(p):
     'call : LPAREN SIMB items RPAREN'
-    if DEBUG: print "Calling", p[2], "with", p[3] 
+    if DEBUG: print "Calling", p[2], "with", p[3]
+    # p[0] = lisp_eval(p[2], p[3])
     p[0] = [p[2]] + [i for i in p[3]]
 
 def p_atom_simbol(p):

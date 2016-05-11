@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from yacc import yacc, lisp_str
+from yacc import yacc, stored_vars
 import lis
 import cmd
 
@@ -35,11 +35,11 @@ class MiniLisp(cmd.Cmd):     # See https://docs.python.org/2/library/cmd.html
            In that case we execute the line as Python code.
         """
         result = yacc.parse(line)
-        print lis.eval(result)
+        print "AST is".format(result)
+        r = lis.eval(result)
+        if r is not None:
+            print r
 
-        # s = lisp_str(result)
-        # if s != 'nil':
-        #     print s
 
 if __name__ == '__main__':
         ml = MiniLisp()
