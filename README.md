@@ -1,7 +1,7 @@
 # PLFinalProject
 
 **Lisp:**
-
+Run: `mini-lisp.py`
 * Math using exec and Jython:
   * `(+ 1 (exec 'from java.lang import Math; toReturn = Math.max(23, 34)'))`
   * `(+ 1 (exec 'import Addition; toReturn = Addition.add(23, 34)'))`
