@@ -92,8 +92,8 @@ def p_string(p):
         if key in stored_vars:
             string = re.sub(r'\\\([\w-]+\)', str(stored_vars[key]), string)
         else:
-            print("Undeclared variable \"{}\"".format(key))
-    p[0] = string
+            print("Error: Undeclared variable \"{}\"".format(key))
+    p[0] = ["str", string]
 
 
 def p_print(p):
@@ -102,8 +102,8 @@ def p_print(p):
              | PRINT LPAREN expression RPAREN'''
     if isinstance(p[3], str) and p[3] in stored_vars:
         p[3] = stored_vars[p[3]]
-    print_blue(p[3])
-    pass
+    print_blue(p[3][1])
+    p[0] = p[3]
 
 def p_empty(p):
     'empty : '
@@ -119,7 +119,7 @@ def p_error(p):
 
 # Differentiate info output with blue color
 def print_blue(s):
-    print "\033[0;34m{0}\033[0m".format(s)
+    print "\033[0;34m{0}{1}\033[0m".format("> ", s)
 
 # Build the parser
 # Use this if you want to build the parser using SLR instead of LALR

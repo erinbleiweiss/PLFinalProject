@@ -52,5 +52,5 @@ _lr_productions = [
   ('print -> PRINT LPAREN TEXT RPAREN','print',4,'p_print','yacc.py',100),
   ('print -> PRINT LPAREN string RPAREN','print',4,'p_print','yacc.py',101),
   ('print -> PRINT LPAREN expression RPAREN','print',4,'p_print','yacc.py',102),
-  ('empty -> <empty>','empty',0,'p_empty','yacc.py',109),
+  ('empty -> <empty>','empty',0,'p_empty','yacc.py',108),
 ]

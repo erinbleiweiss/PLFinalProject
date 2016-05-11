@@ -130,7 +130,9 @@ def eval(x, env=global_env):
         import re
         exec(proc(re.sub(r"^'|'$", '', x[1])))
         return toReturn
-
+    elif x[0] == 'str':
+        if isinstance(x[1], str):
+            return x[1]
     else:                          # (proc arg...)
         if SWIFT_DEBUG:
             print("case '9':")
