@@ -1,4 +1,5 @@
 import ply.yacc as yacc
+import re
 
 # Get the token map from the lexer.  This is required.
 from lex import tokens
@@ -79,9 +80,17 @@ def p_let(p):
 
 def p_string(p):
     '''string : CLSTRING'''
-    print("Saw string")
-    print(p[1])
-    # p[0] = p[1]
+    string = p[1]
+    string_var = re.search(r'\\\([\w-]+\)', string)
+    if string_var:
+        match = string_var.group(0)
+        key = match[2:-1]
+        if key in stored_vars:
+            string = re.sub(r'\\\([\w-]+\)', str(stored_vars[key]), string)
+        else:
+            print("Undeclared variable \"{}\"".format(key))
+    print(string)
+    # p[0] = string
 
 
 def p_empty(p):

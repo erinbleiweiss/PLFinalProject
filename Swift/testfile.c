@@ -6,4 +6,5 @@
 let apples = 3
 "hello"
 "hello world"
+"i have \(apples) apples"
 
