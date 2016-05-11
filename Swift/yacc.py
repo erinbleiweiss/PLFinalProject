@@ -19,7 +19,7 @@ class DivideByZeroError(Exception):
 def p_program(p):
     '''program : expressions
                | declaration
-               | string
+               | print
                | empty'''
     print "Saw: ", p[1]
     p[0] = p[1]
@@ -31,6 +31,8 @@ def p_expressions(p):
 
 def p_expression(p):
     '''expression : operation'''
+    if p[1] is str and p[1] in stored_vars:
+        p[1] = stored_vars[p[1]]
     ast = []
     ast += p[1]
     p[0] = ast
@@ -71,11 +73,13 @@ def p_declaration(p):
     p[0] = p[1]
 
 def p_let(p):
-    '''let : LET TEXT EQUALS INTEGER'''
+    '''let : LET TEXT EQUALS INTEGER
+           | LET TEXT EQUALS string'''
     key = p[2]
     val = p[4]
     stored_vars[key] = val
-    p[0] = val
+    print("Assigning '{0}' to '{1}'".format(val, key))
+    # p[0] = val
 
 
 def p_string(p):
@@ -89,9 +93,15 @@ def p_string(p):
             string = re.sub(r'\\\([\w-]+\)', str(stored_vars[key]), string)
         else:
             print("Undeclared variable \"{}\"".format(key))
-    print(string)
-    # p[0] = string
+    p[0] = string
 
+
+def p_print(p):
+    '''print : PRINT LPAREN TEXT RPAREN'''
+    if isinstance(p[3], str) and p[3] in stored_vars:
+        p[3] = stored_vars[p[3]]
+    print_blue(p[3])
+    pass
 
 def p_empty(p):
     'empty : '

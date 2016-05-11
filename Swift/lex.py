@@ -20,7 +20,7 @@ reserved = {
 # List of token names.
 tokens = ('QUOTE', 'LPAREN', 'RPAREN', 'NIL', 'TRUE', 'FALSE', 'TEXT',
           'INTEGER', 'PLUS', 'MINUS', 'MULT', 'DIV', 'EQUALS', 'LET',
-          'SQUOTE', 'CLSTRING')
+          'SQUOTE', 'CLSTRING', 'PRINT')
 
 
          # + tuple(reserved.keys())
@@ -61,16 +61,18 @@ def t_INTEGER(t):
 
 def t_CLSTRING(t):
     r'\"[a-zA-Z0-9_+\*\- :,\\\(\)]*\"'
-    "Saw CLString"
     return t
 
 def t_LET(t):
     r'\blet\b'
     return t
 
+def t_PRINT(t):
+    r'print'
+    return t
+
 def t_TEXT(t):
     r'\b[\w-]+\b'
-    print("Saw text")
     t.type = reserved.get(t.value,'TEXT')    # Check for reserved words
     return t
 

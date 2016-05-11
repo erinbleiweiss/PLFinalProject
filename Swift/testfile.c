@@ -4,7 +4,5 @@
 3 * 4
 12 / 3
 let apples = 3
-"hello"
-"hello world"
-"i have \(apples) apples"
-
+let appleSummary = "I have \(apples) apples"
+print(appleSummary)

@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'FF01CC3FC0E1D0CA48C7B1F2245AE941'
+_lr_signature = 'BF8AF7643DE9F1F0FEF9A454A2D34D31'
     
-_lr_action_items = {'EQUALS':([17,],[22,]),'$end':([0,1,2,3,4,5,6,7,8,9,10,12,13,15,16,23,24,25,26,27,28,29,30,31,],[-23,-5,-3,-9,-22,0,-1,-2,-4,-11,-20,-10,-7,-8,-6,-15,-14,-19,-18,-17,-16,-12,-13,-21,]),'CLSTRING':([0,],[4,]),'TEXT':([11,],[17,]),'MINUS':([14,24,],[18,18,]),'DIV':([14,26,],[19,19,]),'MULT':([14,28,],[20,20,]),'LET':([0,],[11,]),'INTEGER':([0,1,3,6,9,12,13,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,],[14,-5,-9,14,-11,-10,-7,-8,-6,24,26,28,29,31,-15,-14,-19,-18,-17,-16,-12,-13,]),'PLUS':([14,29,],[21,21,]),}
+_lr_action_items = {'PRINT':([0,],[1,]),'EQUALS':([22,],[32,]),'$end':([0,2,3,4,5,6,7,8,10,11,12,13,15,21,24,25,26,27,28,29,30,31,33,34,35,36,],[-25,-9,0,-4,-11,-20,-10,-8,-5,-1,-2,-3,-7,-6,-15,-14,-19,-18,-17,-16,-12,-13,-24,-22,-23,-21,]),'LPAREN':([1,],[16,]),'TEXT':([14,16,],[22,23,]),'CLSTRING':([32,],[35,]),'RPAREN':([23,],[33,]),'MINUS':([9,25,],[17,17,]),'DIV':([9,27,],[18,18,]),'MULT':([9,29,],[19,19,]),'LET':([0,],[14,]),'INTEGER':([0,2,5,7,8,10,11,15,17,18,19,20,21,24,25,26,27,28,29,30,31,32,],[9,-9,-11,-10,-8,-5,9,-7,25,27,29,30,-6,-15,-14,-19,-18,-17,-16,-12,-13,36,]),'PLUS':([9,30,],[20,20,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,6,],[1,16,]),'string':([0,],[2,]),'subtraction':([0,6,18,],[3,3,23,]),'program':([0,],[5,]),'expressions':([0,],[6,]),'declaration':([0,],[7,]),'empty':([0,],[8,]),'division':([0,6,19,],[9,9,25,]),'let':([0,],[10,]),'multiplication':([0,6,20,],[12,12,27,]),'operation':([0,6,],[13,13,]),'addition':([0,6,21,],[15,15,30,]),}
+_lr_goto_items = {'expression':([0,11,],[10,21,]),'string':([32,],[34,]),'subtraction':([0,11,17,],[2,2,24,]),'program':([0,],[3,]),'expressions':([0,],[11,]),'declaration':([0,],[12,]),'empty':([0,],[4,]),'division':([0,11,18,],[5,5,26,]),'print':([0,],[13,]),'let':([0,],[6,]),'multiplication':([0,11,19,],[7,7,28,]),'operation':([0,11,],[15,15,]),'addition':([0,11,20,],[8,8,31,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,27 +26,29 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> expressions','program',1,'p_program','yacc.py',19),
-  ('program -> declaration','program',1,'p_program','yacc.py',20),
-  ('program -> string','program',1,'p_program','yacc.py',21),
-  ('program -> empty','program',1,'p_program','yacc.py',22),
-  ('expressions -> expression','expressions',1,'p_expressions','yacc.py',27),
-  ('expressions -> expressions expression','expressions',2,'p_expressions','yacc.py',28),
-  ('expression -> operation','expression',1,'p_expression','yacc.py',32),
-  ('operation -> addition','operation',1,'p_operation','yacc.py',38),
-  ('operation -> subtraction','operation',1,'p_operation','yacc.py',39),
-  ('operation -> multiplication','operation',1,'p_operation','yacc.py',40),
-  ('operation -> division','operation',1,'p_operation','yacc.py',41),
-  ('addition -> INTEGER PLUS INTEGER','addition',3,'p_addition','yacc.py',45),
-  ('addition -> INTEGER PLUS addition','addition',3,'p_addition','yacc.py',46),
-  ('subtraction -> INTEGER MINUS INTEGER','subtraction',3,'p_subtraction','yacc.py',50),
-  ('subtraction -> INTEGER MINUS subtraction','subtraction',3,'p_subtraction','yacc.py',51),
-  ('multiplication -> INTEGER MULT INTEGER','multiplication',3,'p_multiplication','yacc.py',55),
-  ('multiplication -> INTEGER MULT multiplication','multiplication',3,'p_multiplication','yacc.py',56),
-  ('division -> INTEGER DIV INTEGER','division',3,'p_division','yacc.py',60),
-  ('division -> INTEGER DIV division','division',3,'p_division','yacc.py',61),
-  ('declaration -> let','declaration',1,'p_declaration','yacc.py',69),
-  ('let -> LET TEXT EQUALS INTEGER','let',4,'p_let','yacc.py',73),
-  ('string -> CLSTRING','string',1,'p_string','yacc.py',81),
-  ('empty -> <empty>','empty',0,'p_empty','yacc.py',87),
+  ('program -> expressions','program',1,'p_program','yacc.py',20),
+  ('program -> declaration','program',1,'p_program','yacc.py',21),
+  ('program -> print','program',1,'p_program','yacc.py',22),
+  ('program -> empty','program',1,'p_program','yacc.py',23),
+  ('expressions -> expression','expressions',1,'p_expressions','yacc.py',28),
+  ('expressions -> expressions expression','expressions',2,'p_expressions','yacc.py',29),
+  ('expression -> operation','expression',1,'p_expression','yacc.py',33),
+  ('operation -> addition','operation',1,'p_operation','yacc.py',41),
+  ('operation -> subtraction','operation',1,'p_operation','yacc.py',42),
+  ('operation -> multiplication','operation',1,'p_operation','yacc.py',43),
+  ('operation -> division','operation',1,'p_operation','yacc.py',44),
+  ('addition -> INTEGER PLUS INTEGER','addition',3,'p_addition','yacc.py',48),
+  ('addition -> INTEGER PLUS addition','addition',3,'p_addition','yacc.py',49),
+  ('subtraction -> INTEGER MINUS INTEGER','subtraction',3,'p_subtraction','yacc.py',53),
+  ('subtraction -> INTEGER MINUS subtraction','subtraction',3,'p_subtraction','yacc.py',54),
+  ('multiplication -> INTEGER MULT INTEGER','multiplication',3,'p_multiplication','yacc.py',58),
+  ('multiplication -> INTEGER MULT multiplication','multiplication',3,'p_multiplication','yacc.py',59),
+  ('division -> INTEGER DIV INTEGER','division',3,'p_division','yacc.py',63),
+  ('division -> INTEGER DIV division','division',3,'p_division','yacc.py',64),
+  ('declaration -> let','declaration',1,'p_declaration','yacc.py',72),
+  ('let -> LET TEXT EQUALS INTEGER','let',4,'p_let','yacc.py',76),
+  ('let -> LET TEXT EQUALS string','let',4,'p_let','yacc.py',77),
+  ('string -> CLSTRING','string',1,'p_string','yacc.py',86),
+  ('print -> PRINT LPAREN TEXT RPAREN','print',4,'p_print','yacc.py',100),
+  ('empty -> <empty>','empty',0,'p_empty','yacc.py',107),
 ]
