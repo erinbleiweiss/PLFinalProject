@@ -8,6 +8,10 @@ Run: `mini-lisp.py`
   * `(+ 1 (exec 'import Addition; toReturn = Addition.add(23, 34)'))` --> `58`
 * Python closure using exec:
   * `(exec 'from Person import Person; p1 = Person(); p1.run('name')')` --> `Bob`
+* Java stream operations using exec:
+  * `(exec 'import ListComprehension; ListComprehension.create_list(); ListComprehension.stream1();')`
+  * `(exec 'import ListComprehension; ListComprehension.create_list(); ListComprehension.stream2();')`
+  * `(exec 'import ListComprehension; ListComprehension.create_list(); ListComprehension.stream3();')`
 * Python lambda functions and list comprehension:
   * `(++ '(1 2 3))` --> `[2 3 4]`
   * `(-- '(1 2 3))` --> `[0 1 2]`

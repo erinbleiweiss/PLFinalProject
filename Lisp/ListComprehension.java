@@ -2,8 +2,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class ListComprehension {
-    public static void main(String[] args) {
-        ArrayList<List<Object>> s_emp = new ArrayList<List<Object>>();
+    public static ArrayList<List<Object>> s_emp = new ArrayList<List<Object>>();
+
+    public static void create_list(){
         //                              0          1            2             3             4        5            6                 7              8           9           10
         //                              ID     LAST_NAME     FIRST_NAME     USERID     START_DATE  COMMENTS     TITLE              SALARY      COMMISSION    DEPT_ID    MANAGER_ID
         List<Object> e1 = Arrays.asList(1,     "MARTIN",     "CARMEN",     "MARTINCU", "3-MAR-90",   "",    "PRESIDENT",            4500,          0,          50,          0);
@@ -34,40 +35,34 @@ public class ListComprehension {
         s_emp.add(e1); s_emp.add(e2); s_emp.add(e3); s_emp.add(e4); s_emp.add(e5); s_emp.add(e6); s_emp.add(e7); s_emp.add(e8); s_emp.add(e9); s_emp.add(e10);
         s_emp.add(e11); s_emp.add(e12); s_emp.add(e13); s_emp.add(e14); s_emp.add(e15); s_emp.add(e16); s_emp.add(e17); s_emp.add(e18); s_emp.add(e19); s_emp.add(e20);
         s_emp.add(e21); s_emp.add(e22); s_emp.add(e23); s_emp.add(e24);
+    }
 
-        /*
-        .forEach()
-        .filter()
-        .map()
-        .sorted()
-         */
-
-
-        // pipeline 1
+    // pipeline 1
+    public static void stream1(){
         System.out.println("Select * from s_emp");
         s_emp.stream()
                 .forEach(p -> System.out.println(p));
+    }
 
-        System.out.println("");
-
-        // pipeline 2
+    // pipeline 2
+    public static void stream2(){
         System.out.println("Select * from s_emp where salary = 1500");
         s_emp.stream()
                 .filter(e -> e.get(7).equals(1500))
                 .forEach(p -> System.out.println(p));
+    }
 
-        System.out.println("");
-
-        // pipeline 3
+    // pipeline 3
+    public static void stream3(){
         System.out.println("Select * from s_emp where salary > 1500 order by salary");
         s_emp.stream()
-                .filter(e -> ((Integer)(e.get(7))) > 1500)
-                .sorted(Comparator.comparing(s -> (Integer)(s.get(7))))
+                .filter(e -> ((Integer) (e.get(7))) > 1500)
+                .sorted(Comparator.comparing(s -> (Integer) (s.get(7))))
                 .forEach(p -> System.out.println(p));
+    }
 
-        System.out.println("");
-
-        // pipeline 4
+    // pipeline 4
+    public static void stream4(){
         System.out.println("Select last_name, first_name, tile, salary from s_emp");
         s_emp.stream()
                 .map(e -> {
@@ -78,10 +73,10 @@ public class ListComprehension {
                     return Arrays.asList(lastname, firstname, tile, salary);
                 })
                 .forEach(p -> System.out.println(p));
+    }
 
-        System.out.println("");
-
-        // pipeline 5
+    // pipeline 5
+    public static void stream5(){
         System.out.println("Select dept_id, avg(salary) from s_emp group by dept_id");
         s_emp.stream()
                 .map(e -> {
@@ -89,15 +84,15 @@ public class ListComprehension {
                     Integer salary = (Integer) (e.get(7));
                     return Arrays.asList(dept_id, salary);
                 })
-                .sorted(Comparator.comparing(s -> (Integer)(s.get(1))))
+                .sorted(Comparator.comparing(s -> (Integer) (s.get(1))))
                 .collect(Collectors.groupingBy(s -> (s.get(0)), Collectors.averagingInt(s -> s.get(1))))
                 .forEach((dept_id, sal) -> {
                     System.out.println(Arrays.asList(dept_id, sal));
                 });
+    }
 
-        System.out.println("");
-
-        // pipeline 6
+    // pipeline 6
+    public static void stream6(){
         System.out.println("Select last_name, first_name, tile, salary from s_emp where salary > 1500 order by title, last name");
         s_emp.stream()
                 .map(e -> {
@@ -107,11 +102,11 @@ public class ListComprehension {
                     Integer salary = (Integer) e.get(7);
                     return Arrays.asList(lastname, firstname, tile, salary);
                 })
-                .filter(e -> ((Integer)(e.get(3))) > 1500)
-                .sorted(Comparator.comparing(s -> ((String)(s.get(0)))))
-                .sorted(Comparator.comparing(s -> ((String)(s.get(2)))))
+                .filter(e -> ((Integer) (e.get(3))) > 1500)
+                .sorted(Comparator.comparing(s -> ((String) (s.get(0)))))
+                .sorted(Comparator.comparing(s -> ((String) (s.get(2)))))
                 .forEach(p -> System.out.println(p));
-
-
     }
+
+
 }
