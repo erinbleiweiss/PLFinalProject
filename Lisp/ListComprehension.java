@@ -59,7 +59,7 @@ public class ListComprehension {
         List<Object> e50 = Arrays.asList("11/22/62",	   "Home",	  "W",	     13,	3);
         List<Object> e51 = Arrays.asList("11/23/61",	   "Away",	  "W",	     25,	0);
         List<Object> e52 = Arrays.asList("11/24/60",	   "Home",	  "W",	     21,	14);
-        
+
         s_score.add(e1); s_score.add(e2); s_score.add(e3); s_score.add(e4); s_score.add(e5); s_score.add(e6); s_score.add(e7); s_score.add(e8); s_score.add(e9); s_score.add(e10);
         s_score.add(e11); s_score.add(e12); s_score.add(e13); s_score.add(e14); s_score.add(e15); s_score.add(e16); s_score.add(e17); s_score.add(e18); s_score.add(e19); s_score.add(e20);
         s_score.add(e21); s_score.add(e22); s_score.add(e23); s_score.add(e24); s_score.add(e25); s_score.add(e26); s_score.add(e27); s_score.add(e28); s_score.add(e29); s_score.add(e30);
