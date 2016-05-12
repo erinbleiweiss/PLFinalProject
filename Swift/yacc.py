@@ -119,7 +119,6 @@ def p_string(p):
             s1 = string[0:idx]
             s2 = string[idx+length:]
             p[0] = [s1, match, s2]
-            # print("s1: {}, s2: {}".format(s1, s2))
             print("Error: Undeclared variable \"{}\"".format(key))
     p[0] = ["str", string]
 
