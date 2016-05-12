@@ -12,6 +12,9 @@ Run: `mini-lisp.py`
   * `(exec 'import ListComprehension; ListComprehension.create_list(); ListComprehension.stream1();')`
   * `(exec 'import ListComprehension; ListComprehension.create_list(); ListComprehension.stream2();')`
   * `(exec 'import ListComprehension; ListComprehension.create_list(); ListComprehension.stream3();')`
+  * `(exec 'import ListComprehension; ListComprehension.create_list(); ListComprehension.stream4();')`
+  * `(exec 'import ListComprehension; ListComprehension.create_list(); ListComprehension.stream5();')`
+  * `(exec 'import ListComprehension; ListComprehension.create_list(); ListComprehension.stream6();')`
 * Python lambda functions and list comprehension:
   * `(++ '(1 2 3))` --> `[2 3 4]`
   * `(-- '(1 2 3))` --> `[0 1 2]`
