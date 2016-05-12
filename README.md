@@ -20,7 +20,7 @@ Run: `mini-lisp.py`
 
 **Swift:**
 
-    run `mini-swift.py,` which reads in `testfile.c`
+run `mini-swift.py,` which reads in `testfile.c`
 
 
 
