@@ -45,28 +45,47 @@ def p_operation(p):
     p[0] = p[1]
 
 def p_addition(p):
-    '''addition : INTEGER PLUS INTEGER
-                | INTEGER PLUS addition'''
+    '''addition : operable PLUS operable
+                | operable PLUS addition'''
     p[0] = [p[2]] + [p[1], p[3]]
 
 def p_subtraction(p):
-    '''subtraction : INTEGER MINUS INTEGER
-                   | INTEGER MINUS subtraction'''
+    '''subtraction : operable MINUS operable
+                   | operable MINUS subtraction'''
     p[0] = [p[2]] + [p[1], p[3]]
 
 def p_multiplication(p):
-    '''multiplication : INTEGER MULT INTEGER
-                   | INTEGER MULT multiplication'''
+    '''multiplication : operable MULT operable
+                   | operable MULT multiplication'''
     p[0] = [p[2]] + [p[1], p[3]]
 
 def p_division(p):
-    '''division : INTEGER DIV INTEGER
-                   | INTEGER DIV division'''
+    '''division : operable DIV operable
+                   | operable DIV division'''
     if p[3] == 0:
         raise DivideByZeroError
     else:
         p[0] = [p[2]] + [p[1], p[3]]
 
+def p_operable(p):
+    '''operable : INTEGER
+                | CLFLOAT
+                | TEXT'''
+    try:
+        p[1] = eval(p[1])
+    except Exception:
+        pass
+
+    if isinstance(p[1], int) or isinstance(p[1], float):
+        p[0] = p[1]
+    elif isinstance(p[1], str):
+        if p[1] in stored_vars:
+            p[1] = stored_vars[p[1]]
+            p[0] = p[1]
+        else:
+            print("Error: Undefined variable '{}'".format(p[1]))
+    else:
+        print("Error: Invalid symbol '{}'".format(p[1]))
 
 def p_declaration(p):
     '''declaration : let'''
@@ -83,27 +102,36 @@ def p_let(p):
 
 
 def p_string(p):
-    '''string : CLSTRING'''
+    '''string : CLSTRING
+              | string expression string'''
+    expr_regex = r'\\\([\w\s\-\+]+\)'
     string = p[1]
-    string_var = re.search(r'\\\([\w-]+\)', string)
+    string_var = re.search(expr_regex, string)
     if string_var:
         match = string_var.group(0)
         key = match[2:-1]
         if key in stored_vars:
-            string = re.sub(r'\\\([\w-]+\)', str(stored_vars[key]), string)
+            string = re.sub(expr_regex, str(stored_vars[key]), string)
         else:
+            idx = string_var.start()
+            length = len(match)
+            s1 = string[0:idx]
+            s2 = string[idx+length:]
+            p[0] = [s1, match, s2]
+            # print("s1: {}, s2: {}".format(s1, s2))
             print("Error: Undeclared variable \"{}\"".format(key))
     p[0] = ["str", string]
+
+
 
 
 def p_print(p):
     '''print : PRINT LPAREN TEXT RPAREN
              | PRINT LPAREN string RPAREN
-             | PRINT LPAREN expression RPAREN'''
+             | PRINT LPAREN expressions RPAREN'''
     if isinstance(p[3], str) and p[3] in stored_vars:
         p[3] = stored_vars[p[3]]
-    print_blue(p[3][1])
-    p[0] = p[3]
+    p[0] = ['print', p[3]]
 
 def p_empty(p):
     'empty : '
@@ -117,9 +145,7 @@ def p_error(p):
         print("Syntax error at '%s'" % p.value)
 
 
-# Differentiate info output with blue color
-def print_blue(s):
-    print "\033[0;34m{0}{1}\033[0m".format("> ", s)
+
 
 # Build the parser
 # Use this if you want to build the parser using SLR instead of LALR

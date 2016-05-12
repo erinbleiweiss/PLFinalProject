@@ -133,9 +133,16 @@ def eval(x, env=global_env):
     elif x[0] == 'str':
         if isinstance(x[1], str):
             return x[1]
+    elif x[0] == 'print':
+        print_blue(eval(x[1], env))
     else:                          # (proc arg...)
         if SWIFT_DEBUG:
             print("case '9':")
         proc = eval(x[0], env)
         args = [eval(exp, env) for exp in x[1:]]
         return proc(*args)
+
+
+# Differentiate info output with blue color
+def print_blue(s):
+    print "\033[0;34m{0}{1}\033[0m".format("> ", s)

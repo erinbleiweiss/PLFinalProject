@@ -19,8 +19,8 @@ reserved = {
 
 # List of token names.
 tokens = ('QUOTE', 'LPAREN', 'RPAREN', 'NIL', 'TRUE', 'FALSE', 'TEXT',
-          'INTEGER', 'PLUS', 'MINUS', 'MULT', 'DIV', 'EQUALS', 'LET',
-          'SQUOTE', 'CLSTRING', 'PRINT')
+          'CLFLOAT', 'INTEGER', 'PLUS', 'MINUS', 'MULT', 'DIV', 'EQUALS',
+          'LET', 'SQUOTE', 'CLSTRING', 'PRINT')
 
 
          # + tuple(reserved.keys())

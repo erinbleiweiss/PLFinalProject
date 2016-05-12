@@ -5,9 +5,9 @@ _tabversion = '3.8'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AA2D18A5D98420B68CEC476B2838AF6E'
+_lr_signature = '1D7293C7B10BB5A4DE69A2BFCAEBE64B'
     
-_lr_action_items = {'PRINT':([0,],[1,]),'EQUALS':([22,],[35,]),'$end':([0,2,3,4,5,6,7,8,10,11,12,13,15,21,26,27,28,29,30,31,32,33,34,36,37,38,39,40,],[-27,-9,0,-4,-11,-20,-10,-8,-5,-1,-2,-3,-7,-6,-23,-15,-14,-19,-18,-17,-16,-12,-13,-26,-25,-24,-22,-21,]),'LPAREN':([1,],[16,]),'TEXT':([14,16,],[22,25,]),'CLSTRING':([16,35,],[26,26,]),'RPAREN':([2,5,7,8,15,23,24,25,26,27,28,29,30,31,32,33,34,],[-9,-11,-10,-8,-7,36,37,38,-23,-15,-14,-19,-18,-17,-16,-12,-13,]),'MINUS':([9,28,],[17,17,]),'DIV':([9,30,],[18,18,]),'MULT':([9,32,],[19,19,]),'LET':([0,],[14,]),'INTEGER':([0,2,5,7,8,10,11,15,16,17,18,19,20,21,27,28,29,30,31,32,33,34,35,],[9,-9,-11,-10,-8,-5,9,-7,9,28,30,32,33,-6,-15,-14,-19,-18,-17,-16,-12,-13,40,]),'PLUS':([9,33,],[20,20,]),}
+_lr_action_items = {'PRINT':([0,],[1,]),'EQUALS':([25,],[38,]),'$end':([0,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,24,28,30,31,32,33,34,35,36,37,40,41,42,43,44,45,],[-31,-9,-22,0,-4,-11,-23,-10,-21,-8,-20,-5,-1,-2,-3,-7,-6,-26,-14,-15,-18,-19,-16,-17,-12,-13,-29,-28,-30,-25,-24,-27,]),'LPAREN':([1,],[19,]),'TEXT':([0,3,4,7,9,10,11,12,13,14,17,18,19,20,21,22,23,24,26,28,29,30,31,32,33,34,35,36,37,43,45,],[4,-9,-22,-11,-10,-21,-8,-20,-5,4,25,-7,27,4,4,4,4,-6,4,-26,4,-14,-15,-18,-19,-16,-17,-12,-13,4,4,]),'CLSTRING':([3,4,7,9,10,11,12,18,19,30,31,32,33,34,35,36,37,38,39,],[-9,-22,-11,-10,-21,-8,-20,-7,28,-14,-15,-18,-19,-16,-17,-12,-13,28,28,]),'RPAREN':([3,4,7,9,10,11,12,13,18,24,26,27,28,29,30,31,32,33,34,35,36,37,45,],[-9,-22,-11,-10,-21,-8,-20,-5,-7,-6,40,41,-26,42,-14,-15,-18,-19,-16,-17,-12,-13,-27,]),'MINUS':([2,4,10,12,27,30,],[20,-22,-21,-20,-22,20,]),'DIV':([2,4,10,12,27,32,],[21,-22,-21,-20,-22,21,]),'MULT':([2,4,10,12,27,34,],[22,-22,-21,-20,-22,22,]),'LET':([0,],[17,]),'CLFLOAT':([0,3,4,7,9,10,11,12,13,14,18,19,20,21,22,23,24,26,28,29,30,31,32,33,34,35,36,37,43,45,],[10,-9,-22,-11,-10,-21,-8,-20,-5,10,-7,10,10,10,10,10,-6,10,-26,10,-14,-15,-18,-19,-16,-17,-12,-13,10,10,]),'INTEGER':([0,3,4,7,9,10,11,12,13,14,18,19,20,21,22,23,24,26,28,29,30,31,32,33,34,35,36,37,38,43,45,],[12,-9,-22,-11,-10,-21,-8,-20,-5,12,-7,12,12,12,12,12,-6,12,-26,12,-14,-15,-18,-19,-16,-17,-12,-13,44,12,12,]),'PLUS':([2,4,10,12,27,36,],[23,-22,-21,-20,-22,23,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -16,7 +16,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'expression':([0,11,16,],[10,21,23,]),'string':([16,35,],[24,39,]),'subtraction':([0,11,16,17,],[2,2,2,27,]),'program':([0,],[3,]),'expressions':([0,],[11,]),'declaration':([0,],[12,]),'empty':([0,],[4,]),'division':([0,11,16,18,],[5,5,5,29,]),'print':([0,],[13,]),'let':([0,],[6,]),'multiplication':([0,11,16,19,],[7,7,7,31,]),'operation':([0,11,16,],[15,15,15,]),'addition':([0,11,16,20,],[8,8,8,34,]),}
+_lr_goto_items = {'operable':([0,14,19,20,21,22,23,26,29,43,45,],[2,2,2,30,32,34,36,2,2,2,2,]),'expression':([0,14,19,26,29,43,45,],[13,24,13,39,24,39,39,]),'string':([19,38,39,],[26,43,45,]),'subtraction':([0,14,19,20,26,29,43,45,],[3,3,3,31,3,3,3,3,]),'program':([0,],[5,]),'expressions':([0,19,],[14,29,]),'declaration':([0,],[15,]),'empty':([0,],[6,]),'division':([0,14,19,21,26,29,43,45,],[7,7,7,33,7,7,7,7,]),'print':([0,],[16,]),'let':([0,],[8,]),'multiplication':([0,14,19,22,26,29,43,45,],[9,9,9,35,9,9,9,9,]),'operation':([0,14,19,26,29,43,45,],[18,18,18,18,18,18,18,]),'addition':([0,14,19,23,26,29,43,45,],[11,11,11,37,11,11,11,11,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -37,20 +37,24 @@ _lr_productions = [
   ('operation -> subtraction','operation',1,'p_operation','yacc.py',42),
   ('operation -> multiplication','operation',1,'p_operation','yacc.py',43),
   ('operation -> division','operation',1,'p_operation','yacc.py',44),
-  ('addition -> INTEGER PLUS INTEGER','addition',3,'p_addition','yacc.py',48),
-  ('addition -> INTEGER PLUS addition','addition',3,'p_addition','yacc.py',49),
-  ('subtraction -> INTEGER MINUS INTEGER','subtraction',3,'p_subtraction','yacc.py',53),
-  ('subtraction -> INTEGER MINUS subtraction','subtraction',3,'p_subtraction','yacc.py',54),
-  ('multiplication -> INTEGER MULT INTEGER','multiplication',3,'p_multiplication','yacc.py',58),
-  ('multiplication -> INTEGER MULT multiplication','multiplication',3,'p_multiplication','yacc.py',59),
-  ('division -> INTEGER DIV INTEGER','division',3,'p_division','yacc.py',63),
-  ('division -> INTEGER DIV division','division',3,'p_division','yacc.py',64),
-  ('declaration -> let','declaration',1,'p_declaration','yacc.py',72),
-  ('let -> LET TEXT EQUALS INTEGER','let',4,'p_let','yacc.py',76),
-  ('let -> LET TEXT EQUALS string','let',4,'p_let','yacc.py',77),
-  ('string -> CLSTRING','string',1,'p_string','yacc.py',86),
-  ('print -> PRINT LPAREN TEXT RPAREN','print',4,'p_print','yacc.py',100),
-  ('print -> PRINT LPAREN string RPAREN','print',4,'p_print','yacc.py',101),
-  ('print -> PRINT LPAREN expression RPAREN','print',4,'p_print','yacc.py',102),
-  ('empty -> <empty>','empty',0,'p_empty','yacc.py',108),
+  ('addition -> operable PLUS operable','addition',3,'p_addition','yacc.py',48),
+  ('addition -> operable PLUS addition','addition',3,'p_addition','yacc.py',49),
+  ('subtraction -> operable MINUS operable','subtraction',3,'p_subtraction','yacc.py',53),
+  ('subtraction -> operable MINUS subtraction','subtraction',3,'p_subtraction','yacc.py',54),
+  ('multiplication -> operable MULT operable','multiplication',3,'p_multiplication','yacc.py',58),
+  ('multiplication -> operable MULT multiplication','multiplication',3,'p_multiplication','yacc.py',59),
+  ('division -> operable DIV operable','division',3,'p_division','yacc.py',63),
+  ('division -> operable DIV division','division',3,'p_division','yacc.py',64),
+  ('operable -> INTEGER','operable',1,'p_operable','yacc.py',71),
+  ('operable -> CLFLOAT','operable',1,'p_operable','yacc.py',72),
+  ('operable -> TEXT','operable',1,'p_operable','yacc.py',73),
+  ('declaration -> let','declaration',1,'p_declaration','yacc.py',86),
+  ('let -> LET TEXT EQUALS INTEGER','let',4,'p_let','yacc.py',90),
+  ('let -> LET TEXT EQUALS string','let',4,'p_let','yacc.py',91),
+  ('string -> CLSTRING','string',1,'p_string','yacc.py',100),
+  ('string -> string expression string','string',3,'p_string','yacc.py',101),
+  ('print -> PRINT LPAREN TEXT RPAREN','print',4,'p_print','yacc.py',124),
+  ('print -> PRINT LPAREN string RPAREN','print',4,'p_print','yacc.py',125),
+  ('print -> PRINT LPAREN expressions RPAREN','print',4,'p_print','yacc.py',126),
+  ('empty -> <empty>','empty',0,'p_empty','yacc.py',132),
 ]
