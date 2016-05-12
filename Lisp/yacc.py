@@ -94,11 +94,6 @@ def divide(l):
 
 name['/'] = divide
 
-def _print(l):
-    print lisp_str(l[0])
-
-name['print'] = _print
-
 
 def let(l):
     if len(l) > 1:
@@ -125,29 +120,6 @@ def bool_if(l):
 
 name['if'] = bool_if
 
-
-# # Utilities functions
-#
-# def is_list(l):
-#     return type(l) == type([])
-#
-# def lisp_str(l):
-#     if type(l) == type([]):
-#         if not l:
-#             return "()"
-#         r = "("
-#         for i in l[:-1]:
-#             r += lisp_str(i) + " "
-#         r += lisp_str(l[-1]) + ")"
-#         return r
-#     elif l is True:
-#         return "#t"
-#     elif l is False:
-#         return "#f"
-#     elif l is None:
-#         return 'nil'
-#     else:
-#         return str(l)
 
 # BNF
 
