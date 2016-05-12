@@ -93,12 +93,13 @@ def p_declaration(p):
 
 def p_let(p):
     '''let : LET TEXT EQUALS INTEGER
-           | LET TEXT EQUALS string'''
+           | LET TEXT EQUALS string
+           | LET TEXT EQUALS expression'''
     key = p[2]
     val = p[4]
     stored_vars[key] = val
     print("Assigning '{0}' to '{1}'".format(val, key))
-    # p[0] = val
+    p[0] = val
 
 
 def p_string(p):
@@ -121,7 +122,6 @@ def p_string(p):
             # print("s1: {}, s2: {}".format(s1, s2))
             print("Error: Undeclared variable \"{}\"".format(key))
     p[0] = ["str", string]
-
 
 
 

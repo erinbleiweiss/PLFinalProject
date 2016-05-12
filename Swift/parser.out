@@ -36,32 +36,33 @@ Rule 22    operable -> TEXT
 Rule 23    declaration -> let
 Rule 24    let -> LET TEXT EQUALS INTEGER
 Rule 25    let -> LET TEXT EQUALS string
-Rule 26    string -> CLSTRING
-Rule 27    string -> string expression string
-Rule 28    print -> PRINT LPAREN TEXT RPAREN
-Rule 29    print -> PRINT LPAREN string RPAREN
-Rule 30    print -> PRINT LPAREN expressions RPAREN
-Rule 31    empty -> <empty>
+Rule 26    let -> LET TEXT EQUALS expression
+Rule 27    string -> CLSTRING
+Rule 28    string -> string expression string
+Rule 29    print -> PRINT LPAREN TEXT RPAREN
+Rule 30    print -> PRINT LPAREN string RPAREN
+Rule 31    print -> PRINT LPAREN expressions RPAREN
+Rule 32    empty -> <empty>
 
 Terminals, with rules where they appear
 
 CLFLOAT              : 21
-CLSTRING             : 26
+CLSTRING             : 27
 DIV                  : 18 19
-EQUALS               : 24 25
+EQUALS               : 24 25 26
 FALSE                : 
 INTEGER              : 20 24
-LET                  : 24 25
-LPAREN               : 28 29 30
+LET                  : 24 25 26
+LPAREN               : 29 30 31
 MINUS                : 14 15
 MULT                 : 16 17
 NIL                  : 
 PLUS                 : 12 13
-PRINT                : 28 29 30
+PRINT                : 29 30 31
 QUOTE                : 
-RPAREN               : 28 29 30
+RPAREN               : 29 30 31
 SQUOTE               : 
-TEXT                 : 22 24 25 28
+TEXT                 : 22 24 25 26 29
 TRUE                 : 
 error                : 
 
@@ -71,15 +72,15 @@ addition             : 8 13
 declaration          : 2
 division             : 11 19
 empty                : 4
-expression           : 5 6 27
-expressions          : 1 6 30
+expression           : 5 6 26 28
+expressions          : 1 6 31
 let                  : 23
 multiplication       : 10 17
 operable             : 12 12 13 14 14 15 16 16 17 18 18 19
 operation            : 7
 print                : 3
 program              : 0
-string               : 25 27 27 29
+string               : 25 28 28 30
 subtraction          : 9 15
 
 Parsing method: LALR
@@ -94,13 +95,14 @@ state 0
     (5) expressions -> . expression
     (6) expressions -> . expressions expression
     (23) declaration -> . let
-    (28) print -> . PRINT LPAREN TEXT RPAREN
-    (29) print -> . PRINT LPAREN string RPAREN
-    (30) print -> . PRINT LPAREN expressions RPAREN
-    (31) empty -> .
+    (29) print -> . PRINT LPAREN TEXT RPAREN
+    (30) print -> . PRINT LPAREN string RPAREN
+    (31) print -> . PRINT LPAREN expressions RPAREN
+    (32) empty -> .
     (7) expression -> . operation
     (24) let -> . LET TEXT EQUALS INTEGER
     (25) let -> . LET TEXT EQUALS string
+    (26) let -> . LET TEXT EQUALS expression
     (8) operation -> . addition
     (9) operation -> . subtraction
     (10) operation -> . multiplication
@@ -118,7 +120,7 @@ state 0
     (22) operable -> . TEXT
 
     PRINT           shift and go to state 1
-    $end            reduce using rule 31 (empty -> .)
+    $end            reduce using rule 32 (empty -> .)
     LET             shift and go to state 17
     INTEGER         shift and go to state 12
     CLFLOAT         shift and go to state 10
@@ -140,9 +142,9 @@ state 0
 
 state 1
 
-    (28) print -> PRINT . LPAREN TEXT RPAREN
-    (29) print -> PRINT . LPAREN string RPAREN
-    (30) print -> PRINT . LPAREN expressions RPAREN
+    (29) print -> PRINT . LPAREN TEXT RPAREN
+    (30) print -> PRINT . LPAREN string RPAREN
+    (31) print -> PRINT . LPAREN expressions RPAREN
 
     LPAREN          shift and go to state 19
 
@@ -343,6 +345,7 @@ state 17
 
     (24) let -> LET . TEXT EQUALS INTEGER
     (25) let -> LET . TEXT EQUALS string
+    (26) let -> LET . TEXT EQUALS expression
 
     TEXT            shift and go to state 25
 
@@ -361,11 +364,11 @@ state 18
 
 state 19
 
-    (28) print -> PRINT LPAREN . TEXT RPAREN
-    (29) print -> PRINT LPAREN . string RPAREN
-    (30) print -> PRINT LPAREN . expressions RPAREN
-    (26) string -> . CLSTRING
-    (27) string -> . string expression string
+    (29) print -> PRINT LPAREN . TEXT RPAREN
+    (30) print -> PRINT LPAREN . string RPAREN
+    (31) print -> PRINT LPAREN . expressions RPAREN
+    (27) string -> . CLSTRING
+    (28) string -> . string expression string
     (5) expressions -> . expression
     (6) expressions -> . expressions expression
     (7) expression -> . operation
@@ -483,14 +486,15 @@ state 25
 
     (24) let -> LET TEXT . EQUALS INTEGER
     (25) let -> LET TEXT . EQUALS string
+    (26) let -> LET TEXT . EQUALS expression
 
     EQUALS          shift and go to state 38
 
 
 state 26
 
-    (29) print -> PRINT LPAREN string . RPAREN
-    (27) string -> string . expression string
+    (30) print -> PRINT LPAREN string . RPAREN
+    (28) string -> string . expression string
     (7) expression -> . operation
     (8) operation -> . addition
     (9) operation -> . subtraction
@@ -523,7 +527,7 @@ state 26
 
 state 27
 
-    (28) print -> PRINT LPAREN TEXT . RPAREN
+    (29) print -> PRINT LPAREN TEXT . RPAREN
     (22) operable -> TEXT .
 
     RPAREN          shift and go to state 41
@@ -535,18 +539,18 @@ state 27
 
 state 28
 
-    (26) string -> CLSTRING .
+    (27) string -> CLSTRING .
 
-    INTEGER         reduce using rule 26 (string -> CLSTRING .)
-    CLFLOAT         reduce using rule 26 (string -> CLSTRING .)
-    TEXT            reduce using rule 26 (string -> CLSTRING .)
-    RPAREN          reduce using rule 26 (string -> CLSTRING .)
-    $end            reduce using rule 26 (string -> CLSTRING .)
+    INTEGER         reduce using rule 27 (string -> CLSTRING .)
+    CLFLOAT         reduce using rule 27 (string -> CLSTRING .)
+    TEXT            reduce using rule 27 (string -> CLSTRING .)
+    RPAREN          reduce using rule 27 (string -> CLSTRING .)
+    $end            reduce using rule 27 (string -> CLSTRING .)
 
 
 state 29
 
-    (30) print -> PRINT LPAREN expressions . RPAREN
+    (31) print -> PRINT LPAREN expressions . RPAREN
     (6) expressions -> expressions . expression
     (7) expression -> . operation
     (8) operation -> . addition
@@ -584,12 +588,12 @@ state 30
     (14) subtraction -> operable . MINUS operable
     (15) subtraction -> operable . MINUS subtraction
 
+    $end            reduce using rule 14 (subtraction -> operable MINUS operable .)
     RPAREN          reduce using rule 14 (subtraction -> operable MINUS operable .)
     INTEGER         reduce using rule 14 (subtraction -> operable MINUS operable .)
     CLFLOAT         reduce using rule 14 (subtraction -> operable MINUS operable .)
     TEXT            reduce using rule 14 (subtraction -> operable MINUS operable .)
     CLSTRING        reduce using rule 14 (subtraction -> operable MINUS operable .)
-    $end            reduce using rule 14 (subtraction -> operable MINUS operable .)
     MINUS           shift and go to state 20
 
 
@@ -597,12 +601,12 @@ state 31
 
     (15) subtraction -> operable MINUS subtraction .
 
+    $end            reduce using rule 15 (subtraction -> operable MINUS subtraction .)
     RPAREN          reduce using rule 15 (subtraction -> operable MINUS subtraction .)
     INTEGER         reduce using rule 15 (subtraction -> operable MINUS subtraction .)
     CLFLOAT         reduce using rule 15 (subtraction -> operable MINUS subtraction .)
     TEXT            reduce using rule 15 (subtraction -> operable MINUS subtraction .)
     CLSTRING        reduce using rule 15 (subtraction -> operable MINUS subtraction .)
-    $end            reduce using rule 15 (subtraction -> operable MINUS subtraction .)
 
 
 state 32
@@ -642,8 +646,8 @@ state 34
     INTEGER         reduce using rule 16 (multiplication -> operable MULT operable .)
     CLFLOAT         reduce using rule 16 (multiplication -> operable MULT operable .)
     TEXT            reduce using rule 16 (multiplication -> operable MULT operable .)
-    CLSTRING        reduce using rule 16 (multiplication -> operable MULT operable .)
     $end            reduce using rule 16 (multiplication -> operable MULT operable .)
+    CLSTRING        reduce using rule 16 (multiplication -> operable MULT operable .)
     MULT            shift and go to state 22
 
 
@@ -655,8 +659,8 @@ state 35
     INTEGER         reduce using rule 17 (multiplication -> operable MULT multiplication .)
     CLFLOAT         reduce using rule 17 (multiplication -> operable MULT multiplication .)
     TEXT            reduce using rule 17 (multiplication -> operable MULT multiplication .)
-    CLSTRING        reduce using rule 17 (multiplication -> operable MULT multiplication .)
     $end            reduce using rule 17 (multiplication -> operable MULT multiplication .)
+    CLSTRING        reduce using rule 17 (multiplication -> operable MULT multiplication .)
 
 
 state 36
@@ -665,12 +669,12 @@ state 36
     (12) addition -> operable . PLUS operable
     (13) addition -> operable . PLUS addition
 
-    CLSTRING        reduce using rule 12 (addition -> operable PLUS operable .)
     RPAREN          reduce using rule 12 (addition -> operable PLUS operable .)
     INTEGER         reduce using rule 12 (addition -> operable PLUS operable .)
     CLFLOAT         reduce using rule 12 (addition -> operable PLUS operable .)
     TEXT            reduce using rule 12 (addition -> operable PLUS operable .)
     $end            reduce using rule 12 (addition -> operable PLUS operable .)
+    CLSTRING        reduce using rule 12 (addition -> operable PLUS operable .)
     PLUS            shift and go to state 23
 
 
@@ -678,61 +682,94 @@ state 37
 
     (13) addition -> operable PLUS addition .
 
-    CLSTRING        reduce using rule 13 (addition -> operable PLUS addition .)
     RPAREN          reduce using rule 13 (addition -> operable PLUS addition .)
     INTEGER         reduce using rule 13 (addition -> operable PLUS addition .)
     CLFLOAT         reduce using rule 13 (addition -> operable PLUS addition .)
     TEXT            reduce using rule 13 (addition -> operable PLUS addition .)
     $end            reduce using rule 13 (addition -> operable PLUS addition .)
+    CLSTRING        reduce using rule 13 (addition -> operable PLUS addition .)
 
 
 state 38
 
     (24) let -> LET TEXT EQUALS . INTEGER
     (25) let -> LET TEXT EQUALS . string
-    (26) string -> . CLSTRING
-    (27) string -> . string expression string
+    (26) let -> LET TEXT EQUALS . expression
+    (27) string -> . CLSTRING
+    (28) string -> . string expression string
+    (7) expression -> . operation
+    (8) operation -> . addition
+    (9) operation -> . subtraction
+    (10) operation -> . multiplication
+    (11) operation -> . division
+    (12) addition -> . operable PLUS operable
+    (13) addition -> . operable PLUS addition
+    (14) subtraction -> . operable MINUS operable
+    (15) subtraction -> . operable MINUS subtraction
+    (16) multiplication -> . operable MULT operable
+    (17) multiplication -> . operable MULT multiplication
+    (18) division -> . operable DIV operable
+    (19) division -> . operable DIV division
+    (20) operable -> . INTEGER
+    (21) operable -> . CLFLOAT
+    (22) operable -> . TEXT
 
-    INTEGER         shift and go to state 44
+    INTEGER         shift and go to state 45
     CLSTRING        shift and go to state 28
+    CLFLOAT         shift and go to state 10
+    TEXT            shift and go to state 4
 
-    string                         shift and go to state 43
+    operable                       shift and go to state 2
+    expression                     shift and go to state 43
+    string                         shift and go to state 44
+    subtraction                    shift and go to state 3
+    division                       shift and go to state 7
+    multiplication                 shift and go to state 9
+    operation                      shift and go to state 18
+    addition                       shift and go to state 11
 
 state 39
 
-    (27) string -> string expression . string
-    (26) string -> . CLSTRING
-    (27) string -> . string expression string
+    (28) string -> string expression . string
+    (27) string -> . CLSTRING
+    (28) string -> . string expression string
 
     CLSTRING        shift and go to state 28
 
-    string                         shift and go to state 45
+    string                         shift and go to state 46
 
 state 40
 
-    (29) print -> PRINT LPAREN string RPAREN .
+    (30) print -> PRINT LPAREN string RPAREN .
 
-    $end            reduce using rule 29 (print -> PRINT LPAREN string RPAREN .)
+    $end            reduce using rule 30 (print -> PRINT LPAREN string RPAREN .)
 
 
 state 41
 
-    (28) print -> PRINT LPAREN TEXT RPAREN .
+    (29) print -> PRINT LPAREN TEXT RPAREN .
 
-    $end            reduce using rule 28 (print -> PRINT LPAREN TEXT RPAREN .)
+    $end            reduce using rule 29 (print -> PRINT LPAREN TEXT RPAREN .)
 
 
 state 42
 
-    (30) print -> PRINT LPAREN expressions RPAREN .
+    (31) print -> PRINT LPAREN expressions RPAREN .
 
-    $end            reduce using rule 30 (print -> PRINT LPAREN expressions RPAREN .)
+    $end            reduce using rule 31 (print -> PRINT LPAREN expressions RPAREN .)
 
 
 state 43
 
+    (26) let -> LET TEXT EQUALS expression .
+
+    $end            reduce using rule 26 (let -> LET TEXT EQUALS expression .)
+
+
+state 44
+
     (25) let -> LET TEXT EQUALS string .
-    (27) string -> string . expression string
+    (28) string -> string . expression string
     (7) expression -> . operation
     (8) operation -> . addition
     (9) operation -> . subtraction
@@ -763,17 +800,22 @@ state 43
     operation                      shift and go to state 18
     addition                       shift and go to state 11
 
-state 44
-
-    (24) let -> LET TEXT EQUALS INTEGER .
-
-    $end            reduce using rule 24 (let -> LET TEXT EQUALS INTEGER .)
-
-
 state 45
 
-    (27) string -> string expression string .
-    (27) string -> string . expression string
+    (24) let -> LET TEXT EQUALS INTEGER .
+    (20) operable -> INTEGER .
+
+    $end            reduce using rule 24 (let -> LET TEXT EQUALS INTEGER .)
+    PLUS            reduce using rule 20 (operable -> INTEGER .)
+    MINUS           reduce using rule 20 (operable -> INTEGER .)
+    MULT            reduce using rule 20 (operable -> INTEGER .)
+    DIV             reduce using rule 20 (operable -> INTEGER .)
+
+
+state 46
+
+    (28) string -> string expression string .
+    (28) string -> string . expression string
     (7) expression -> . operation
     (8) operation -> . addition
     (9) operation -> . subtraction
@@ -794,15 +836,15 @@ state 45
   ! shift/reduce conflict for INTEGER resolved as shift
   ! shift/reduce conflict for CLFLOAT resolved as shift
   ! shift/reduce conflict for TEXT resolved as shift
-    RPAREN          reduce using rule 27 (string -> string expression string .)
-    $end            reduce using rule 27 (string -> string expression string .)
+    RPAREN          reduce using rule 28 (string -> string expression string .)
+    $end            reduce using rule 28 (string -> string expression string .)
     INTEGER         shift and go to state 12
     CLFLOAT         shift and go to state 10
     TEXT            shift and go to state 4
 
-  ! INTEGER         [ reduce using rule 27 (string -> string expression string .) ]
-  ! CLFLOAT         [ reduce using rule 27 (string -> string expression string .) ]
-  ! TEXT            [ reduce using rule 27 (string -> string expression string .) ]
+  ! INTEGER         [ reduce using rule 28 (string -> string expression string .) ]
+  ! CLFLOAT         [ reduce using rule 28 (string -> string expression string .) ]
+  ! TEXT            [ reduce using rule 28 (string -> string expression string .) ]
 
     operable                       shift and go to state 2
     expression                     shift and go to state 39
@@ -814,6 +856,6 @@ state 45
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for INTEGER in state 45 resolved as shift
-WARNING: shift/reduce conflict for CLFLOAT in state 45 resolved as shift
-WARNING: shift/reduce conflict for TEXT in state 45 resolved as shift
+WARNING: shift/reduce conflict for INTEGER in state 46 resolved as shift
+WARNING: shift/reduce conflict for CLFLOAT in state 46 resolved as shift
+WARNING: shift/reduce conflict for TEXT in state 46 resolved as shift
