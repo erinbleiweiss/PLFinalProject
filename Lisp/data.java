@@ -5,17 +5,17 @@ public class ListComprehension {
     public static ArrayList<List<Object>> s_score = new ArrayList<List<Object>>();
 
     public static void create_list(){
-        //                                    0               1        2          3       4
+        //                                    0               1        2          3       4  
         //                                  DATE	      HOME/AWAY	  RESULT	 TEX    A&M
-        List<Object> e1 = Arrays.asList("11/24/11",	       "Away",	  "W",	     27,	25);
-        List<Object> e2 = Arrays.asList("11/25/10",	       "Home",	  "L",	     17,	24);
-        List<Object> e3 = Arrays.asList("11/26/09",	       "Away",	  "W",	     49,	39);
-        List<Object> e4 = Arrays.asList("11/27/08",	       "Home",	  "W",	     49,	9);
-        List<Object> e5 = Arrays.asList("11/23/07",	       "Away",	  "L",	     30,	38);
-        List<Object> e6 = Arrays.asList("11/24/06",	       "Home",	  "L",	     7,     12);
-        List<Object> e7 = Arrays.asList("11/25/05",	       "Away",	  "W",	     40,	29);
-        List<Object> e8 = Arrays.asList("11/26/04",	       "Home",	  "W",	     26,	13);
-        List<Object> e9 = Arrays.asList("11/28/03",	       "Away",	  "W",	     46,	15);
+        List<Object> e01 = Arrays.asList("11/24/11",	   "Away",	  "W",	     27,	25);
+        List<Object> e02 = Arrays.asList("11/25/10",	   "Home",	  "L",	     17,	24);
+        List<Object> e03 = Arrays.asList("11/26/09",	   "Away",	  "W",	     49,	39);
+        List<Object> e04 = Arrays.asList("11/27/08",	   "Home",	  "W",	     49,	9);
+        List<Object> e05 = Arrays.asList("11/23/07",	   "Away",	  "L",	     30,	38);
+        List<Object> e06 = Arrays.asList("11/24/06",	   "Home",	  "L",	     7,     12);
+        List<Object> e07 = Arrays.asList("11/25/05",	   "Away",	  "W",	     40,	29);
+        List<Object> e08 = Arrays.asList("11/26/04",	   "Home",	  "W",	     26,	13);
+        List<Object> e09 = Arrays.asList("11/28/03",	   "Away",	  "W",	     46,	15);
         List<Object> e10 = Arrays.asList("11/29/02",	   "Home",	  "W",	     50,	20);
         List<Object> e11 = Arrays.asList("11/23/01",	   "Away",	  "W",	     21,	7);
         List<Object> e12 = Arrays.asList("11/24/00",	   "Home",	  "W",	     43,	17);
@@ -104,5 +104,23 @@ public class ListComprehension {
                 })
                 .forEach(p -> System.out.println(p));
     }
+
+    // pipeline 5
+    public static void stream5(){
+        System.out.println("Select result, avg(TEX) from s_score group by result");
+        s_score.stream()
+                .map(e -> {
+                    String result = (Integer) e.get(2);
+                    Integer TEX = (Integer) (e.get(3));
+                    return Arrays.asList(dept_id, salary);
+                })
+                .sorted(Comparator.comparing(s -> (Integer) (s.get(1))))
+                .collect(Collectors.groupingBy(s -> (s.get(0)), Collectors.averagingInt(s -> s.get(1))))
+                .forEach((result, TEX) -> {
+                    System.out.println(Arrays.asList(result, TEX));
+                });
+    }
+
+
 
 }
